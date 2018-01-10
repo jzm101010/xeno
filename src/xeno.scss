@@ -1,0 +1,11 @@
+@import './style/default';
+@import './style/ionicons';
+@import './style/flex';
+@import './style/hairline';
+
+// 引入组件
+@import 'components/list/list';
+@import 'components/icon/icon';
+@import 'components/header/header';
+@import 'components/button/button';
+@import 'components/scroller/scroller';

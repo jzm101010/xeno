@@ -1,0 +1,31 @@
+extends ./_layout
+
+block title
+    | Button
+
+block content
+    .margin-10
+        x-button(long) default
+    .margin-10
+        x-button(type="primary", long) primary
+    .margin-10
+        x-button(type="success", long) success
+    .margin-10
+        x-button(type="danger", long) danger
+    .margin-10
+        x-button(type="warning", long) warning 
+    .margin-10
+        x-button(icon="plus-round") 添加
+        x-button(icon="plus-round", icon-pos="after") 添加
+        x-button(icon="plus-round")
+        x-button(icon="plus-round", loading) 提交信息
+
+block script
+  script.
+    new Vue({
+      el: '#app',
+      data () {
+        return {
+        }
+      }
+    })

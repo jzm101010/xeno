@@ -1,0 +1,57 @@
+.hairline-left::before, .hairline-right::after {
+    content: "";
+    position: absolute;
+    background-color: #ddd;
+    display: block;
+    top: 0;
+    bottom: auto;
+    height: 100%;
+    width: 1px;
+}
+  
+.hairline-top::before, .hairline-bottom::after {
+    content: "";
+    position: absolute;
+    background-color: #ddd;
+    display: block;
+    left: 0;
+    right: auto;
+    height: 1px;
+    width: 100%;
+}
+  
+.hairline-left::before {
+    left: 0;
+    right: auto;
+    transform-origin: 0 50%;
+    -webkit-transform-origin: 0 50%;
+    transform: scaleX(.5);
+    -webkit-transform: scaleX(.5);
+}
+
+.hairline-right:after {
+    left: auto;
+    right: 0;
+    transform-origin: 100% 50%;
+    -webkit-transform-origin: 100% 50%;
+    transform: scaleX(.5);
+    -webkit-transform: scaleX(.5)
+}
+  
+.hairline-top::before {
+    top: 0;
+    bottom: auto;
+    transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    transform: scaleY(.5);
+    -webkit-transform: scaleY(.5);
+}
+  
+.hairline-bottom::after {
+    top: atuo;
+    bottom: 0;
+    transform-origin: 0 100%;
+    -webkit-transform-origin: 0 100%;
+    transform: scaleY(.5);
+    -webkit-transform: scaleY(.5);
+}

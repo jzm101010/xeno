@@ -1,0 +1,52 @@
+{
+    "server": {
+        "port": 8081
+    },
+    "release": {
+        "project": "xeno",
+        "domain": "",
+
+        "cases": {
+            "dev": {
+                "watch": true,
+                "version": true,
+                "optimize": false,
+                "env": {
+                    "ENV": "LOCAL"
+                }
+            },
+            "qa": {
+                "watch": false,
+                "version": false,
+                "optimize": false
+            },
+            "www": {
+                "watch": false,
+                "version": true,
+                "optimize": true
+            },
+            "dist": {
+                "watch": false,
+                "www": "../dist",
+                "optimize": true
+            }
+        },
+
+        "copy": [
+            "**/*.min.js",
+            "**/*.min.css",
+            "libs/**"
+        ],
+        "ignore": [
+            "fepack.json"
+        ],
+        "externals": {
+        },
+        "postcss": {
+        }
+    },
+    "deploy": {
+        "beRelease": "",
+        "feReleaseGit": ""
+    }
+}

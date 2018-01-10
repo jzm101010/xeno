@@ -1,0 +1,127 @@
+// 基础单位
+$bp: 1px;
+
+// colors
+$color-primary:             #4a90e2;
+$color-info:                #18bee6;
+
+$color-msg:                 #878d99;
+$color-success:             #4c0;
+$color-warning:             #ffbd17;
+$color-danger:              #ea5a49;
+
+$color-msg-bg:              #f3f4f5;
+$color-success-bg:          #f0f9eb;
+$color-warning-bg:          oldlace;
+$color-danger-bg:           #fee;        
+
+$color-black:               #484746;
+$color-black-light:         #222222;
+$color-black-light-extra:   #333333;
+$color-silver:              #666666;
+$color-silver-light:        #888888;
+$color-silver-light-extra:  #AAAAAA;
+$color-gray:                #BBBBBB;
+$color-gray-light:          #CCCCCC;
+$color-gray-light-extra:    #DDDDDD;
+$color-white-dark:          #EEEEEE;
+$color-white-light:         #f5f5f5;
+$color-white:               #FFFFFF;
+
+// border
+$color-border: #ddd;
+
+// 尺寸
+// ---
+// 图标尺寸
+$icon-size-xxs: 15 * $bp;
+$icon-size-xs: 18 * $bp;
+$icon-size-sm: 21 * $bp;
+$icon-size-md: 26 * $bp;       // 导航条上的图标、grid的图标大小
+$icon-size-lg: 36 * $bp;
+
+// 圆角
+// ---
+$radius-xs: 2 * $bp;
+$radius-sm: 3 * $bp;
+$radius-md: 5 * $bp;
+$radius-lg: 7 * $bp;
+$radius-circle: 50%;
+$font-size: 12 $bp;
+
+// 间距
+// ---
+// 水平间距
+$h-spacing-sm: 5 * $bp;
+$h-spacing-md: 8 * $bp;
+$h-spacing-lg: 15 * $bp;
+
+// 垂直间距
+$v-spacing-xs: 3 * $bp;
+$v-spacing-sm: 6 * $bp;
+$v-spacing-md: 9 * $bp;
+$v-spacing-lg: 15 * $bp;
+$v-spacing-xl: 21 * $bp;
+
+// 阴影
+$popup-shadow: 0 1 * $bp 6 * $bp rgba(0,0,0,.2);
+
+$height: 32 * $bp;
+$minHeight: 24 * $bp;
+
+// 组件
+// Header
+$header-red: #ea5a49;
+$header-yellow: #ffbd17;
+$header-green: #4c0;
+$header-blue: #4a90e2;
+$header-dark: #484746;
+$header-white: #fff;
+
+// Button
+$button-height: 47 * $bp;
+$button-font-size: 18 * $bp;
+
+$button-height-sm: 30 * $bp;
+$button-font-size-sm: 13 * $bp;
+
+$button-active-color: rgba(255,255,255,0.3);
+$button-active-primary: #3483D6;
+$button-active-success: #5FB92E;
+$button-active-warning: #D8A42B;
+$button-active-danger: #C33D31;
+$button-active-default: #ddd;
+
+// Scroller
+$scroller-layer-height: 60 * $bp;
+$scroller-layer-spacing: -60 * $bp;
+$scroller-layer-fontsize: 16 * $bp;
+$scroller-layer-color: #ddd;
+
+
+
+// 初始化
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+html, body{
+    -webkit-text-size-adjust:none;
+    height: 100%;
+}
+body{
+    font: $font-size "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+    color: $color-black;
+    background-color: $color-white-light;
+}
+a{
+    color: $color-info;
+    text-decoration: none;
+    outline: 0;
+}
+  
+ul, li{
+    list-style: none;
+}

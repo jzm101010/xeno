@@ -1,0 +1,101 @@
+/*
+ * =========================================================
+ * @ filename : flex.scss
+ * @ explains : flex layout mixin; 目前支持flex,未做inline-flex
+ *
+ * @ email    : f2engineer@outlook.com
+ * @ author   : Pom
+ * ==========================================================
+ */
+
+// ----------------------------------
+// 定义伸缩布局
+@mixin display-flex() {
+    display: -webkit-box;   /* old version iOS 6- Safari 3.1-6 */
+    display: -moz-box;      /* Firefox 19- */
+    display: -ms-flexbox;   /* IE10 */
+    display: -webkit-flex;  /* Chrome */
+    display: flex;          /* New version */
+}
+
+@mixin flex-direction($value: row) {
+    @if $value == 'row' {
+        -webkit-box-orient: horizontal;
+        -moz-box-orient: horizontal;
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+    } @else if $value == 'column' {
+        -webkit-box-orient: vertical;
+        -moz-box-orient: vertical;
+        -ms-flex-direction: column;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+    }
+}
+
+@mixin justify-content($value: center) {
+    @if $value == 'center' {
+        -webkit-box-pack: center;
+        -moz-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+
+    } @else if $value == 'space-between' {
+        -webkit-box-pack: justify;
+        -moz-box-pack: justify;
+        -ms-flex-pack: justify;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+    }
+}
+
+// ----------------------------------
+// 侧轴对齐方式 支持三版本通用属性为 center, baseline, stretch
+@mixin align-items($align-items: center) {
+    -webkit-box-align: $align-items;
+    -moz-box-align: $align-items;
+    -ms-flex-align: $align-items;
+    -webkit-align-items: $align-items;
+    align-items: $align-items;
+}
+
+
+// ----------------------------------
+// 设置子元素的显示顺序
+@mixin order($order) {
+    -webkit-box-ordinal-group: $order;
+    -moz-box-ordinal-group: $order;
+    -ms-flex-order: $order;
+    -webkit-order: $order;
+    order: $order;
+}
+
+// ----------------------------------
+// 伸缩项目的伸缩比例
+@mixin flex($flex) {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+// 多行
+@mixin flex-wrap($value: wrap) {
+    @if $value == 'wrap' {
+        -webkit-box-lines: multiple;
+        -moz-box-lines: multiple;
+        -ms-flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+
+    } @else if $value == 'nowrap' {
+        -webkit-box-lines: single;
+        -moz-box-lines: single;
+        -ms-flex-wrap: nowrap;
+        -webkit-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    }
+}

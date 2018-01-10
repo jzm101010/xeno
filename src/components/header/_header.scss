@@ -1,0 +1,103 @@
+$header-height: 45 * $bp;
+
+.x-header {
+    @include display-flex();
+    @include align-items();
+    height: $header-height;
+    background-color: $color-primary;
+    color: $color-black-light;
+
+    &-left,
+    &-title,
+    &-right {
+      flex: 1;
+      height: 100%;
+      @include display-flex();
+      @include align-items();
+    }
+
+    &-left {
+        padding-left: $h-spacing-lg;
+        font-size: 16 * $bp;
+
+        &-icon {
+            margin-right: $h-spacing-sm;
+            display: inherit;
+        }
+    }
+
+    &-title {
+        justify-content: center;
+        font-size: 18 * $bp;
+        white-space: nowrap;
+    }
+
+    &-right {
+        justify-content: flex-end;
+        font-size: 16 * $bp;
+        margin-right: $h-spacing-lg;
+    }
+
+    &-left, &-right {
+        i + i {
+            margin-left: 15 * $bp;
+        }
+    }
+
+    &-white {
+        background-color: $header-white;
+        color: $color-primary;
+    }
+
+    &-white &-title {
+        color: $color-black;
+    }
+
+    &-blue {
+        background-color: $header-blue;
+        color: $color-white;
+    }
+
+    &-blue &-title {
+        color: $color-white;
+    }
+
+    &-green {
+        background-color: $header-green;
+        color: $color-white;
+    }
+
+    &-green &-title {
+        color: $color-white;
+    }
+
+    &-yellow {
+        background-color: $header-yellow;
+        color: $color-white;
+    }
+
+    &-yellow &-title {
+        color: $color-white;
+    }
+
+    &-red {
+        background-color: $header-red;
+        color: $color-white;
+    }
+
+    &-red &-title {
+        color: $color-white;
+    }
+
+    &-dark {
+        background-color: $header-dark;
+        color: $color-white;
+    }
+
+    &-dark &-title {
+        color: $color-white;
+    }
+
+    
+    
+}

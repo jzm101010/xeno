@@ -1,0 +1,34 @@
+extends ./_layout
+
+block title
+    | List
+
+block content
+    .margin-10
+        x-list(title="Title", is-title)
+        x-list(title="normal")
+        x-list(title="list title", value="list value")
+        x-list(title="icon left", value="icon right", left-icon="social-github", right-icon="person")
+        x-list(title="slot iconLeft icon-xs", value="slot iconRight icon-lg")
+            div(slot="leftIcon")
+                x-icon(type="social-github", size="xs")
+            div(slot="rightIcon")
+                x-icon(type="person", size="lg")
+        x-list(title="textarea", value="just like you see\nthis is a textarea", type="textarea")
+        x-list(title="phone number", value="13813299675", is-tel)
+        x-list(title="link", value="click", is-link)
+
+        x-list(title="No Border", is-title)
+        x-list(title="no bottom border", no-bottom-border)
+        x-list(title="no border", no-top-border, no-bottom-border)
+        x-list(title="no top border", no-top-border)
+
+block script
+  script.
+    new Vue({
+      el: '#app',
+      data () {
+        return {
+        }
+      }
+    })

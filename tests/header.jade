@@ -1,0 +1,69 @@
+extends ./_layout
+
+block title
+    | Header
+
+block content
+    div()
+        x-header(title="Header", :on-left-click="clickLeft")
+            div(slot="headerLeft")
+                x-icon(type="ios-arrow-left")
+            div(slot="headerRight")
+                x-icon(type="ios-search", is-button)
+                x-icon(type="ios-more", is-button)
+    div(style="margin-top: 10px;")
+        x-header(title="Header", type="blue")
+            div(slot="headerLeft")
+                x-icon(type="ios-arrow-left")
+            div(slot="headerRight")
+                x-icon(type="ios-search", is-button, @click.native="clickRight")
+                x-icon(type="ios-more", is-button, @click.native="clickMore")
+    div(style="margin-top: 10px;")
+        x-header(title="Header", type="green")
+            div(slot="headerLeft")
+                x-icon(type="ios-arrow-left")
+            div(slot="headerRight")
+                x-icon(type="ios-search", is-button, @click.native="clickRight")
+                x-icon(type="ios-more", is-button, @click.native="clickMore")
+    div(style="margin-top: 10px;")
+        x-header(title="Header", type="yellow")
+            div(slot="headerLeft")
+                x-icon(type="ios-arrow-left")
+            div(slot="headerRight")
+                x-icon(type="ios-search", is-button, @click.native="clickRight")
+                x-icon(type="ios-more", is-button, @click.native="clickMore")
+    div(style="margin-top: 10px;")
+        x-header(title="Header", type="red")
+            div(slot="headerLeft")
+                x-icon(type="ios-arrow-left")
+            div(slot="headerRight")
+                x-icon(type="ios-search", is-button, @click.native="clickRight")
+                x-icon(type="ios-more", is-button, @click.native="clickMore")
+    div(style="margin-top: 10px;")
+        x-header(title="Header", type="dark")
+            div(slot="headerLeft")
+                x-icon(type="ios-arrow-left")
+            div(slot="headerRight")
+                x-icon(type="ios-search", is-button, @click.native="clickRight")
+                x-icon(type="ios-more", is-button, @click.native="clickMore")
+
+block script
+  script.
+    new Vue({
+      el: '#app',
+      data () {
+        return {
+        }
+      },
+      methods: {
+          clickLeft () {
+              console.log('click left')
+          },
+          clickRight () {
+              console.log('click right')
+          },
+          clickMore () {
+              console.log('click more')
+          }
+      }
+    })

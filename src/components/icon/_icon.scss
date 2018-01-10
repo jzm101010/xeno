@@ -1,0 +1,47 @@
+@keyframes circle {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+.x-icon{
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    font-size: $icon-size-md;
+    color: inherit;
+
+    &-xxs {
+        font-size: $icon-size-xxs;
+    }
+    &-xs {
+        font-size: $icon-size-xs;
+    }
+    &-sm {
+        font-size: $icon-size-sm;
+    }
+    &-md {
+        font-size: $icon-size-md;
+    }
+    &-lg {
+        font-size: $icon-size-lg;
+    }
+    &-button::after {
+        content: '';
+        position: absolute;
+        top: -10 * $bp;
+        right: -10 * $bp; 
+        bottom: -10 * $bp; 
+        left: -10 * $bp;
+    }
+}
+
+.x-icon-rotate {
+    animation: circle 1.5s infinite linear;
+}
+     
