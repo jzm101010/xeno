@@ -4,9 +4,10 @@ block title
     | Scroller
 
 block content
-    x-header(title="scroll")
-    x-scroller(:on-refresh="refresh", :on-scroll="scroll", snapping)
+    x-header(title="scroller", style="position: fixed;top:0;left:0;right:0;z-index:100;")
+    x-scroller(:on-refresh="refresh", :on-scroll="scroll", snapping, style="padding-top: 46px;")
         x-list(v-for="item in list", :title="item")
+        
 
 
 block script
@@ -15,33 +16,44 @@ block script
         el: '#app',
         data () {
             return {
-                list: [1,2,3,4,5,6,7,8,9]
+                list: [],
+                top: '',
+                bottom: ''
             }
+        },
+        mounted: function () {
+            for (var i = 1; i <= 20; i++) {
+                this.list.push('scroll-list-' + i)
+            }
+            this.top = 1
+            this.bottom = 20
         },
         methods: {
             refresh (done) {
                 setTimeout(_ => {
                     var start = this.top - 1
                     for (var i = start; i > start - 10; i--) {
-                        this.items.splice(0, 0, 'scroll-list-' + i);
+                        this.list.splice(0, 0, 'scroll-list-' + i);
                     }
-                    this.top = this.top - 10;
-                    done();
+                    this.top = this.top - 10
+                    done()
                 }, 1500)
             },
             scroll (done) {
-                var self = this
-                setTimeout(function () {
-                    var start = self.bottom + 1;
+                setTimeout(_ => {
+                    var start = this.bottom + 1
+
                     for (var i = start; i < start + 10; i++) {
-                        self.items.push('scroll-list-' + i);
+                        this.list.push('scroll-list-' + i)
                     }
-                    self.bottom = self.bottom + 10;
-                    done();
+                    this.bottom = this.bottom + 10
+                    if(this.bottom>50) {
+                        done(true)
+                    }else {
+                        done()
+                    }
+                    
                 }, 1500)
             },
-            test () {
-                console.log('1111')
-            }
         }
     })

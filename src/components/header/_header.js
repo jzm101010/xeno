@@ -31,6 +31,10 @@ var XHeader = Vue.extend({
         var me = this
 
         var $header = hx(`div.x-header + x-header-${this.type}`)
+
+        if(this.type === 'white') {
+            $header.push(hx(`div.hairline-bottom`))
+        }
         $header.push(
             hx(`div.x-header-left`, {on: {click () {me.onLeftClick()}}}, [this.$slots.headerLeft])
         )

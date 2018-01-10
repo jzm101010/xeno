@@ -40,7 +40,7 @@ var XSroller = Vue.extend({
     
         snapHeight: {
             type: Number,
-            default: 100
+            default: 90
         },
     
         animating: {
@@ -73,6 +73,11 @@ var XSroller = Vue.extend({
         loadingText: {
             type: String,
             default: '正在加载'
+        },
+
+        loadingIcon: {
+            type: String,
+            default: 'load-a'
         },
 
         refreshIcon: {
@@ -113,13 +118,12 @@ var XSroller = Vue.extend({
 
         showLoadingContent () {
             var contentHeight = 0 
-            this.content
-              ? contentHeight = this.content.offsetHeight
-              : void 666
-    
-            return this.onScroll
-              ? contentHeight > this.minContentHeight
-              : false
+
+            if(this.content) {
+                contentHeight = this.content.offsetHeight
+            }
+
+            return this.onScroll && (contentHeight > this.minContentHeight)
         }
         
     },
@@ -154,7 +158,7 @@ var XSroller = Vue.extend({
                     })
                 )
                 .push(
-                    hx(`span.x-scroller-refresh-text`, {
+                    hx(`span.x-scroller-spinner-text`, {
                         style: {
                             color: '#ddd'
                         }
@@ -167,8 +171,9 @@ var XSroller = Vue.extend({
                 $refreshContent.push(
                     hx(`x-icon`, {
                         props: {
+                            size: 'lg',
                             autoRotate: true,
-                            type: 'refresh'
+                            type: this.loadingIcon.replace(/^ion-/, '')
                         }
                     })
                 )
@@ -180,24 +185,24 @@ var XSroller = Vue.extend({
         getLoading () {
             var $loading = hx(`div.x-scroller-loading`)
 
-            $loading
-            .push(
-                hx(`span.x-scorller-spinner`, {
-                    'class': {
-                        active: this.showLoading
-                    },
-                    style: {
-                        color: '#ddd'
-                    }
-                }).push(
-                    hx(`x-icon`, {
-                        props: {
-                            type: this.refreshIcon.replace(/^ion-/, '')
+            if(this.showLoading) {
+                $loading.push(
+                    hx(`span.x-scorller-spinner`, {
+                        style: {
+                            color: '#ddd'
                         }
-                    })
+                    }).push(
+                        hx(`x-icon`, {
+                            props: {
+                                autoRotate: true,
+                                type: this.loadingIcon.replace(/^ion-/, '')
+                            }
+                        })
+                    )
                 )
-            )
-            .push(
+            }
+
+            $loading.push(
                 hx(`span.x-scorller-spinner+no-data-text`, {
                     'class': {
                         active: !this.showLoading && this.loadingStatus === 2
@@ -288,6 +293,27 @@ var XSroller = Vue.extend({
             }
             this.scroller.doTouchEnd(e.timeStamp)
             this.mousedown = false
+        },
+
+        triggerPullToRefresh() {
+            this.scroller.triggerPullToRefresh()
+          },
+    
+        scrollTo(x, y, animate) {
+            this.scroller.scrollTo(x, y, animate)
+        },
+
+        scrollBy(x, y, animate) {
+            this.scroller.scrollBy(x, y, animate)
+        },
+
+        getPosition() {
+            var pos = this.scroller.getValues()
+    
+            return {
+              left: parseInt(pos.left),
+              top: parseInt(pos.top)
+            }
         },
     },
     render (h) {
@@ -380,7 +406,11 @@ var XSroller = Vue.extend({
 
         this.resizeTimer = setInterval(() => {
             var [width, height] = [this.content.offsetWidth, this.content.offsetHeight]
+            // console.log(width + ',' + height)
+            // console.log('--------')
+            // console.log(contentWidth + ',' + contentHeight)
             if (width !== contentWidth || height !== contentHeight) {
+                
                 contentWidth = width
                 contentHeight = height
                 this.resize()
