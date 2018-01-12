@@ -74,12 +74,12 @@
 
 // ----------------------------------
 // 伸缩项目的伸缩比例
-@mixin flex($flex) {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
+@mixin flex($flex: 1) {
+    -webkit-box-flex: $flex;
+    -moz-box-flex: $flex;
+    -webkit-flex: $flex;
+    -ms-flex: $flex;
+    flex: $flex;
 }
 
 // 多行

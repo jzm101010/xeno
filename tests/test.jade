@@ -1,0 +1,28 @@
+extends ./_layout
+
+block title
+    | test
+
+block content
+    div(style="position:fixed; top:0;left:0;right:0;bottom:0;")
+    div(@click.capture="test") click
+
+        
+
+
+block script
+  script.
+    new Vue({
+        el: '#app',
+        data () {
+            return {
+            }
+        },
+        mounted: function () {
+        },
+        methods: {
+            test () {
+                console.log(1)
+            }
+        }
+    })

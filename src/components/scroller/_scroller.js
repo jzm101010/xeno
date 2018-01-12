@@ -10,23 +10,10 @@ function whValidator (v) {
 
 var XSroller = Vue.extend({
     props: {
-        onScroll: {
-            type: Function,
-            default: _ => {
-                console.log('scroll')
-            }
-        },
-        onRefresh: {
-            type: Function,
-            default: _ => {
-                console.log('refresh')
-            }
-        },
+        onScroll: Function,
+        onRefresh: Function,
 
-        disabled: {
-            type: Boolean,
-            default: false
-        },
+        easyMode: Boolean,
 
         snapping: {
             type: Boolean,
@@ -354,6 +341,20 @@ var XSroller = Vue.extend({
         this.container = document.getElementsByClassName(`container-${this.containerId}`)[0]
         this.content = document.getElementsByClassName(`content-${this.contentId}`)[0]
 
+        // if(this.easyMode) {
+        //     this.scroller = new Scroller(getRender(this.content), {
+        //         scrollingX: false,
+        //         snapping: this.snapping,
+        //     })
+        // }else {
+        //     this.scroller = new Scroller(getRender(this.content), {
+        //         scrollingX: false,
+        //         snapping: this.snapping,
+        //         animating: this.animating,
+        //         animationDuration: this.animationDuration,
+        //         bouncing: this.bouncing
+        //     })
+        // }
 
         this.scroller = new Scroller(getRender(this.content), {
             scrollingX: false,
@@ -362,6 +363,7 @@ var XSroller = Vue.extend({
             animationDuration: this.animationDuration,
             bouncing: this.bouncing
         })
+        
         if(this.onRefresh) {
             this.scroller.activatePullToRefresh(60, _ => {
                 this.refreshStatus = 1
@@ -403,20 +405,17 @@ var XSroller = Vue.extend({
         this.scroller.setPosition(rect.left + this.container.clientLeft, rect.top + this.container.clientTop)
 
         var [contentWidth, contentHeight] = [this.content.offsetWidth, this.content.offsetHeight]
-
+        
         this.resizeTimer = setInterval(() => {
             var [width, height] = [this.content.offsetWidth, this.content.offsetHeight]
-            // console.log(width + ',' + height)
-            // console.log('--------')
-            // console.log(contentWidth + ',' + contentHeight)
             if (width !== contentWidth || height !== contentHeight) {
-                
                 contentWidth = width
                 contentHeight = height
                 this.resize()
             }
-          }, 10);
+        }, 10);
 
+        this.resize()
     },
     destroyed () {
         clearInterval(this.resizeTimer);

@@ -1,0 +1,30 @@
+extends ./_layout
+
+block title
+    | Picker
+
+block content
+    x-header(title="picker")
+    .margin-10
+        x-button(long, @click.native="picker.single = true") single
+    
+    x-picker(:data="list", v-model="picker.single", :on-cancel="onCancel")
+
+block script
+  script.
+    new Vue({
+      el: '#app',
+      data () {
+        return {
+            list: ['北京', '上海', '深圳', '广州','北京', '上海', '深圳', '广州','北京', '上海', '深圳', '广州','北京', '上海', '深圳', '广州'],
+            picker: {
+                single: false
+            }
+        }
+      },
+      methods: {
+          onCancel () {
+              this.picker.single = false
+          }
+      }
+    })
