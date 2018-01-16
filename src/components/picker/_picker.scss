@@ -66,14 +66,18 @@
     &-main {
         height: 238px;
         padding: 0;
-        position: relative;
         z-index: 1;
+        display: block;
+        position: relative;
+        overflow: hidden;
+        width: 100%;
 
-        // // position: relative;
-        // height: 100%;
+        @include display-flex();
+        @include flex-direction();
+        @include align-items();
     }
 
-    &-col {
+    &-col-0, &-col-1, &-col-2 {
         @include flex();
         display: block;
         position: relative;
@@ -81,7 +85,7 @@
         overflow: hidden;
         width: 100%;
 
-        &-mask {
+        .x-picker-col-mask {
             position: absolute;
             left: 0;
             top: 0;
@@ -98,7 +102,7 @@
             pointer-events: none;
         }
 
-        &-indicator {
+        .x-picker-col-indicator {
             width: 100%;
             height: $picker-col-item-height;
             position: absolute;
@@ -107,9 +111,10 @@
             z-index: 3;
             border-top: 1 * $bp solid #ddd;
             border-bottom: 1 * $bp solid #ddd;
+            pointer-events: none;
         }
 
-        &-item {
+        .x-picker-col-item {
             text-align: center;
             font-size: $picker-item-font-size;
             height: $picker-col-item-height;
@@ -119,10 +124,15 @@
             text-overflow: ellipsis;
         }
 
+        .x-picker-col-item-selected {
+            font-size: $picker-item-selected-font-size;
+        }
+
         .x-scroller-content {
             padding: 102px 0;
         }
     }
+
 }
 
 .x-picker.active {

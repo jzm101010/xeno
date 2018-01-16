@@ -12,6 +12,7 @@ var XSroller = Vue.extend({
     props: {
         onScroll: Function,
         onRefresh: Function,
+        pickerPos: Function,
 
         easyMode: Boolean,
 
@@ -85,7 +86,7 @@ var XSroller = Vue.extend({
         minContentHeight: {
             type: Number,
             default: 0 
-          }
+          },
     },
     computed: {
         refreshCls () {

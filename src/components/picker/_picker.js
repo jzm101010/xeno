@@ -1,24 +1,17 @@
 import {hx} from '../../common/_tools.js'
 
+const item_height = 34
+
+const refList = ['picker_scroller_0', 'picker_scroller_1', 'picker_scroller_2']
+
 var XPicker = Vue.extend({
     props: {
         value: Boolean,
         data: Array,
         title: String,
         disable: Boolean,
+        cascader: Boolean,
 
-        onConfirm: {
-            type: Function,
-            default: _ => {
-                console.log('confirm')
-            }
-        },
-        onCancel: {
-            type: Function,
-            default: _ => {
-                console.log('cancel')
-            }
-        },
         onChange: {
             type: Function,
             default: _ => {
@@ -27,42 +20,246 @@ var XPicker = Vue.extend({
         },
     },
     computed: {
-        cls () {
-            
+        pickerDataTitle () {
+            var flag = false
+            var arr = []
+
+            // this.data.map(item => {
+            //     if (typeof item == 'object') {
+            //         flag = true
+            //         let child = []
+            //         item.map(_ => {
+            //             if(this.cascader) {
+            //                 child.push([_.label, _.parentId])
+            //             }else {
+            //                 child.push(_.label)
+            //             }
+            //         })
+
+            //         arr.push(child)
+            //     }
+            // })
+
+            this.data.map(item => {
+                if (typeof item == 'object') {
+                    flag = true
+
+                    if (this.cascader) {
+                        var child = {}
+                        item.map(_ => {
+                            if (_.parentId !== undefined) {
+                                if (child[_.parentId]) {
+                                    child[_.parentId].push(_.label)
+                                }else {
+                                    child[_.parentId] = []
+                                    child[_.parentId].push(_.label)
+                                }
+                            }else {
+                                if (child['first']) {
+                                    child['first'].push(_.label)
+                                }else {
+                                    child['first'] = []
+                                    child['first'].push(_.label)
+                                }
+                            }
+                        })
+                    }else {
+                        var child = []
+                        item.map(_ => {
+                            child.push(_.label)
+                        })
+                    }
+
+                    arr.push(child)
+                }
+            })
+
+            return flag ? arr : ['暂无数据']
+        },
+        pickerDataValue () {
+            var flag = false
+            var arr = []
+
+            // this.data.map(item => {
+            //     if (typeof item == 'object') {
+            //         flag = true
+            //         let child = []
+
+            //         item.map(_ => {
+            //             child.push(_.value)
+            //         })
+
+            //         arr.push(child)
+            //     }
+            // })
+
+            this.data.map(item => {
+                if (typeof item == 'object') {
+                    flag = true
+
+                    if (this.cascader) {
+                        var child = {}
+                        item.map(_ => {
+                            if (_.parentId !== undefined) {
+                                if (child[_.parentId]) {
+                                    child[_.parentId].push(_.value)
+                                }else {
+                                    child[_.parentId] = []
+                                    child[_.parentId].push(_.value)
+                                }
+                            }else {
+                                if (child['first']) {
+                                    child['first'].push(_.value)
+                                }else {
+                                    child['first'] = []
+                                    child['first'].push(_.value)
+                                }
+                            }
+                        })
+                    }else {
+                        var child = []
+                        item.map(_ => {
+                            child.push(_.value)
+                        })
+                    }
+
+                    arr.push(child)
+                }
+            })
+
+            return flag ? arr : ['暂无数据']
+        },
+        cascaderCol_0Title () {
+            var flag = false
+            var arr = []
+
+            this.data[0].map(item => {
+                if(typeof item == 'object') {
+                    flag = true
+                }
+                arr.push(item.label)
+            })
+
+            return flag ? arr : ['暂无数据']
+        },
+        cascaderCol_0Value () {
+            var flag = false
+            var arr = []
+
+            this.data[0].map(item => {
+                if(typeof item == 'object') {
+                    flag = true
+                }
+                arr.push(item.value)
+            })
+
+            return flag ? arr : ['']
+        },
+        cascaderCol_1Title () {
+            var flag = false
+            var arr = []
+
+            this.data[1].map(item => {
+                if(!this.cascader || item.parentId == this.cascaderCol_0Value[this.pickerIndex[0]]) {
+                    flag = true
+                    arr.push(item.label)
+                }
+            })
+
+            return flag ? arr : ['暂无数据']
+        },
+        cascaderCol_1Value () {
+            var flag = false
+            var arr = []
+
+            this.data[1].map(item => {
+                if(!this.cascader || item.parentId == this.cascaderCol_0Value[this.pickerIndex[0]]) {
+                    flag = true
+                    arr.push(item.value)
+                }
+            })
+
+            return flag ? arr : ['']
+        },
+        cascaderCol_2Title () {
+            var flag = false
+            var arr = []
+
+            this.data[2].map(item => {
+                if(!this.cascader || item.parentId == this.cascaderCol_1Value[this.pickerIndex[1]]) {
+                    flag = true
+                    arr.push(item.label)
+                }
+            })
+
+            return flag ? arr : ['暂无数据']
+        },
+        cascaderCol_2Value () {
+            var flag = false
+            var arr = []
+
+            this.data[2].map(item => {
+                if(!this.cascader || item.parentId == this.cascaderCol_1Value[this.pickerIndex[1]]) {
+                    flag = true
+                    arr.push(item.value)
+                }
+            })
+
+            return flag ? arr : ['']
         },
     },
     data () {
         return {
             pickerId: Math.random().toString(36).substring(2),
-            timerDelay: false
+            timerDelay: false,
+            timer: undefined,
+            pickerPos: undefined,
+            pickerIndex: [],
+            chooseVal: [],
+            chooseTitle: []
         }
     },
     methods: {
+        onConfirm () {
+            this.chooseVal = []
+            this.chooseTitle = []
+            this.pickerIndex.map((item, index) => {
+                this.chooseVal.push(this[`cascaderCol_${index}Value`][item])
+                this.chooseTitle.push(this[`cascaderCol_${index}Title`][item])
+            })
+            this.$emit('confirm', this.chooseVal, this.chooseTitle)
+        },
+        onCancel () {
+            this.$emit('input', false)
+        },
+        updatePicker () {
+            this.pickerIndex = []
+            refList.map((key, refIdx) => {
+                if(this.$refs[key]) {
+                    var index = Math.round((this.$refs[key].getPosition().top)/34)
+                    if(index<0) {
+                        index = 0
+                    }
+                    if(index >= this[`cascaderCol_${refIdx}Title`].length) {
+                        index = this[`cascaderCol_${refIdx}Title`].length - 1
+                    }
+                    this.pickerIndex.push(index)
+                    this.$refs[key].scrollTo(0, item_height * this.pickerIndex[refIdx])
+                }
+            })
+        },
         getContent () {
             var me = this
 
             var $content = hx(`div.x-picker`)
             var $header = hx(`div.x-picker-header`)
             var $main = hx(`div.x-picker-main`)
-            var $col = hx(`div.x-picker-col`)
-            var $scroller = hx(`x-scroller`, {
-                props: {
-                    easyMode: true,
-                    animationDuration: 1,
-                    ref: 'scroller'
-                }
-            })
-
-
-            this.data.map(item => {
-                $scroller.push(hx(`div.x-picker-col-item`, {}, [item]))
-            })
 
             $header
             .push(
                 hx(`div.x-picker-header-left + x-picker-header-item`, {
                     on: {
-                        click: this.onCancel
+                        click: me.onCancel
                     }
                 }, ['取消'])
             )
@@ -70,22 +267,94 @@ var XPicker = Vue.extend({
             .push(
                 hx(`div.x-picker-header-right + x-picker-header-item`, {
                     on: {
-                        click: this.onConfirm
+                        click: me.onConfirm
                     }
                 }, ['确定'])
             )
             .push(hx(`div.hairline-bottom`))
 
-            $col
-            .push(hx(`div.x-picker-col-mask`))
-            .push(hx(`div.x-picker-col-indicator`))
-            .push($scroller)
+            // if (this.cascader) {
+            //     this.data.map((_, index) => {
+            //         let $col = hx(`div.x-picker-col-${index}`)
+            //         let $scroller = hx(`x-scroller`, {
+            //             props: {
+            //                 animationDuration: 2
+            //             },
+            //             ref: `picker_scroller_${index}`
+            //         })
 
-            $main.push($col)
+            //         this[`cascaderCol_${index}Title`].map((inner, innerIndex) => {
+            //             $scroller.push(hx(`div.x-picker-col-item`, {
+            //                 class: {
+            //                     'x-picker-col-item-selected': innerIndex == this.pickerIndex[index]
+            //                 }
+            //             }, [inner]))
+            //         })
+
+            //         $col
+            //         .push(hx(`div.x-picker-col-mask`))
+            //         .push(hx(`div.x-picker-col-indicator`))
+            //         .push($scroller)
+    
+            //         $main.push($col)
+            //     })
+            // } else {
+            //     this.pickerDataTitle.map((item, index) => {
+            //         let $col = hx(`div.x-picker-col-${index}`)
+            //         let $scroller = hx(`x-scroller`, {
+            //             props: {
+            //                 animationDuration: 2
+            //             },
+            //             ref: `picker_scroller_${index}`
+            //         })
+    
+            //         item.map((inner, innerIndex) => {
+            //             $scroller.push(hx(`div.x-picker-col-item`, {
+            //                 class: {
+            //                     'x-picker-col-item-selected': innerIndex == this.pickerIndex[index]
+            //                 }
+            //             }, [inner]))
+            //         })
+    
+            //         $col
+            //         .push(hx(`div.x-picker-col-mask`))
+            //         .push(hx(`div.x-picker-col-indicator`))
+            //         .push($scroller)
+    
+            //         $main.push($col)
+            //     }) 
+            // }
+
+            this.data.map((_, index) => {
+                let $col = hx(`div.x-picker-col-${index}`)
+                let $scroller = hx(`x-scroller`, {
+                    props: {
+                        animationDuration: 2
+                    },
+                    ref: `picker_scroller_${index}`
+                })
+
+                this[`cascaderCol_${index}Title`].map((inner, innerIndex) => {
+                    $scroller.push(hx(`div.x-picker-col-item`, {
+                        class: {
+                            'x-picker-col-item-selected': innerIndex == this.pickerIndex[index]
+                        }
+                    }, [inner]))
+                })
+
+                $col
+                .push(hx(`div.x-picker-col-mask`))
+                .push(hx(`div.x-picker-col-indicator`))
+                .push($scroller)
+
+                $main.push($col)
+            })
+
+            
 
             return $content.push($header).push($main)
 
-        }
+        },
     },
     render (h) {
         var me = this
@@ -105,10 +374,13 @@ var XPicker = Vue.extend({
         )
         
         return this.value ? $container.resolve(h) : false
-        // return this.getContent().resolve(h)
-
     },
     mounted () {
+        this.timer = setInterval(_ => {
+            if(this.$refs.picker_scroller_0) {
+                this.updatePicker()
+            }
+        }, 100)
     },
     destroyed () {
     }     
