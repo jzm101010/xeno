@@ -1,0 +1,61 @@
+extends ./_layout
+
+block title
+    | Select
+
+block content
+    x-header(title="select")
+    div(style="margin-top: 10px")
+        x-select(title="single", :options="list1", v-model="select1")
+        x-select(title="multiple_2", :options="list2", v-model="select2")
+        x-select(title="multiple_3", :options="list3", v-model="select3")
+        x-select(title="cascader", :options="list4", v-model="select4", cascader)
+        x-select(title="cascader_3", :options="list5", v-model="select5", cascader)
+        x-select(title="定义picker标题", :options="list5", v-model="select5", cascader, picker-title="请选择")
+        x-select(title="disabled", :options="list5", v-model="select5", cascader, picker-title="请选择", disabled)
+        
+    
+    //- x-picker(:data="list1", v-model="picker.single", @confirm="onConfirm")
+    //- x-picker(:data="list2", v-model="picker.multiple_2", @confirm="onConfirm")
+    //- x-picker(:data="list3", v-model="picker.multiple_3", @confirm="onConfirm")
+    //- x-picker(:data="list4", v-model="picker.cascader", @confirm="onConfirm", cascader)
+    //- x-picker(:data="list5", v-model="picker.cascader_3", @confirm="onConfirm", cascader)
+
+block script
+  script.
+    new Vue({
+      el: '#app',
+      data () {
+        return {
+            list1: [[{label: '北京', value: 0}, {label: '上海', value: 1}, {label: '广州', value: 2}, {label: '深圳', value: 3}, {label: '杭州', value: 4}]],
+            list2: [[{label: '北京', value: 0}, {label: '上海', value: 1}, {label: '广州', value: 2}, {label: '深圳', value: 3}, {label: '杭州', value: 4}], [{label: '北京1', value: 0}, {label: '上海1', value: 1}, {label: '广州1', value: 2}, {label: '深圳1', value: 3}, {label: '杭州1', value: 4}]],
+            list3: [[{label: '北京', value: 0}, {label: '上海', value: 1}, {label: '广州', value: 2}, {label: '深圳', value: 3}, {label: '杭州', value: 4}], [{label: '北京1', value: 0}, {label: '上海1', value: 1}, {label: '广州1', value: 2}, {label: '深圳1', value: 3}, {label: '杭州1', value: 4}], [{label: '北京2', value: 0}, {label: '上海2', value: 1}, {label: '广州2', value: 2}, {label: '深圳2', value: 3}, {label: '杭州2', value: 4}]],
+            list4: [[{label: '北京', value: 0}, {label: '上海', value: 1}],
+             [{label: '北京1', value: 2, parentId: 0}, {label: '北京2', value: 3, parentId: 0}, 
+              {label: '上海1', value: 4, parentId: 1}, {label: '上海2', value: 5, parentId: 1}],
+             ],
+            list5: [[{label: '北京', value: 0}, {label: '上海', value: 1}],
+             [{label: '北京1', value: 2, parentId: 0}, {label: '北京2', value: 3, parentId: 0}, 
+              {label: '上海1', value: 4, parentId: 1}, {label: '上海2', value: 5, parentId: 1}],
+             [{label: '北京11', value: 6, parentId: 2}, {label: '北京12', value: 66, parentId: 2},
+              {label: '北京21', value: 7, parentId: 3}, {label: '北京22', value: 77, parentId: 3}, 
+              {label: '上海11', value: 8, parentId: 4}, {label: '上海12', value: 88, parentId: 4},
+               {label: '上海21', value: 9, parentId: 5}, {label: '上海22', value: 99, parentId: 5}],
+             ],
+            select1: '',
+            select2: '',
+            select3: '',
+            select4: '',
+            select5: '',
+        }
+      },
+      methods: {
+          onCancel () {
+              this.picker.single = false
+          },
+          onConfirm (value, title) {
+              alert(value)
+              alert(title)
+          }
+      }
+    })

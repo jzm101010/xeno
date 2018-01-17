@@ -80,19 +80,6 @@ var XPicker = Vue.extend({
             var flag = false
             var arr = []
 
-            // this.data.map(item => {
-            //     if (typeof item == 'object') {
-            //         flag = true
-            //         let child = []
-
-            //         item.map(_ => {
-            //             child.push(_.value)
-            //         })
-
-            //         arr.push(child)
-            //     }
-            // })
-
             this.data.map(item => {
                 if (typeof item == 'object') {
                     flag = true
@@ -134,7 +121,7 @@ var XPicker = Vue.extend({
             var arr = []
 
             this.data[0].map(item => {
-                if(typeof item == 'object') {
+                if (typeof item == 'object') {
                     flag = true
                 }
                 arr.push(item.label)
@@ -147,7 +134,7 @@ var XPicker = Vue.extend({
             var arr = []
 
             this.data[0].map(item => {
-                if(typeof item == 'object') {
+                if (typeof item == 'object') {
                     flag = true
                 }
                 arr.push(item.value)
@@ -159,12 +146,14 @@ var XPicker = Vue.extend({
             var flag = false
             var arr = []
 
-            this.data[1].map(item => {
-                if(!this.cascader || item.parentId == this.cascaderCol_0Value[this.pickerIndex[0]]) {
-                    flag = true
-                    arr.push(item.label)
-                }
-            })
+            if (this.data[1]) {
+                this.data[1].map(item => {
+                    if (!this.cascader || item.parentId == this.cascaderCol_0Value[this.pickerIndex[0]]) {
+                        flag = true
+                        arr.push(item.label)
+                    }
+                })
+            }
 
             return flag ? arr : ['暂无数据']
         },
@@ -172,12 +161,14 @@ var XPicker = Vue.extend({
             var flag = false
             var arr = []
 
-            this.data[1].map(item => {
-                if(!this.cascader || item.parentId == this.cascaderCol_0Value[this.pickerIndex[0]]) {
-                    flag = true
-                    arr.push(item.value)
-                }
-            })
+            if (this.data[1]) {
+                this.data[1].map(item => {
+                    if (!this.cascader || item.parentId == this.cascaderCol_0Value[this.pickerIndex[0]]) {
+                        flag = true
+                        arr.push(item.value)
+                    }
+                })
+            }
 
             return flag ? arr : ['']
         },
@@ -185,12 +176,14 @@ var XPicker = Vue.extend({
             var flag = false
             var arr = []
 
-            this.data[2].map(item => {
-                if(!this.cascader || item.parentId == this.cascaderCol_1Value[this.pickerIndex[1]]) {
-                    flag = true
-                    arr.push(item.label)
-                }
-            })
+            if (this.data[2]) {
+                this.data[2].map(item => {
+                    if(!this.cascader || item.parentId == this.cascaderCol_1Value[this.pickerIndex[1]]) {
+                        flag = true
+                        arr.push(item.label)
+                    }
+                })
+            }
 
             return flag ? arr : ['暂无数据']
         },
@@ -198,12 +191,14 @@ var XPicker = Vue.extend({
             var flag = false
             var arr = []
 
-            this.data[2].map(item => {
-                if(!this.cascader || item.parentId == this.cascaderCol_1Value[this.pickerIndex[1]]) {
-                    flag = true
-                    arr.push(item.value)
-                }
-            })
+            if (this.data[2]) {
+                this.data[2].map(item => {
+                    if(!this.cascader || item.parentId == this.cascaderCol_1Value[this.pickerIndex[1]]) {
+                        flag = true
+                        arr.push(item.value)
+                    }
+                })
+            }
 
             return flag ? arr : ['']
         },
@@ -213,6 +208,7 @@ var XPicker = Vue.extend({
             pickerId: Math.random().toString(36).substring(2),
             timerDelay: false,
             timer: undefined,
+            firstWatch: true,
             pickerPos: undefined,
             pickerIndex: [],
             chooseVal: [],
@@ -228,25 +224,36 @@ var XPicker = Vue.extend({
                 this.chooseTitle.push(this[`cascaderCol_${index}Title`][item])
             })
             this.$emit('confirm', this.chooseVal, this.chooseTitle)
+            this.onCancel()
         },
         onCancel () {
+            this.firstWatch = true
             this.$emit('input', false)
         },
         updatePicker () {
-            this.pickerIndex = []
-            refList.map((key, refIdx) => {
-                if(this.$refs[key]) {
-                    var index = Math.round((this.$refs[key].getPosition().top)/34)
-                    if(index<0) {
-                        index = 0
+            if (this.firstWatch) {
+                refList.map((key, refIdx) => {
+                    if (this.$refs[key] && (this.pickerIndex[refIdx] || this.pickerIndex[refIdx] === 0)) {
+                        this.$refs[key].scrollTo(0, item_height * this.pickerIndex[refIdx])
                     }
-                    if(index >= this[`cascaderCol_${refIdx}Title`].length) {
-                        index = this[`cascaderCol_${refIdx}Title`].length - 1
+                })
+                this.firstWatch = false
+            } else {
+                this.pickerIndex = []
+                refList.map((key, refIdx) => {
+                    if (this.$refs[key]) {
+                        var index = Math.round((this.$refs[key].getPosition().top)/34)
+                        index = index < 0 ? 0 : index
+
+                        if(index >= this[`cascaderCol_${refIdx}Title`].length) {
+                            index = this[`cascaderCol_${refIdx}Title`].length - 1
+                        }
+                        this.pickerIndex.push(index)
+                        this.$refs[key].scrollTo(0, item_height * this.pickerIndex[refIdx])
                     }
-                    this.pickerIndex.push(index)
-                    this.$refs[key].scrollTo(0, item_height * this.pickerIndex[refIdx])
-                }
-            })
+                })
+            }
+            
         },
         getContent () {
             var me = this
@@ -272,58 +279,6 @@ var XPicker = Vue.extend({
                 }, ['确定'])
             )
             .push(hx(`div.hairline-bottom`))
-
-            // if (this.cascader) {
-            //     this.data.map((_, index) => {
-            //         let $col = hx(`div.x-picker-col-${index}`)
-            //         let $scroller = hx(`x-scroller`, {
-            //             props: {
-            //                 animationDuration: 2
-            //             },
-            //             ref: `picker_scroller_${index}`
-            //         })
-
-            //         this[`cascaderCol_${index}Title`].map((inner, innerIndex) => {
-            //             $scroller.push(hx(`div.x-picker-col-item`, {
-            //                 class: {
-            //                     'x-picker-col-item-selected': innerIndex == this.pickerIndex[index]
-            //                 }
-            //             }, [inner]))
-            //         })
-
-            //         $col
-            //         .push(hx(`div.x-picker-col-mask`))
-            //         .push(hx(`div.x-picker-col-indicator`))
-            //         .push($scroller)
-    
-            //         $main.push($col)
-            //     })
-            // } else {
-            //     this.pickerDataTitle.map((item, index) => {
-            //         let $col = hx(`div.x-picker-col-${index}`)
-            //         let $scroller = hx(`x-scroller`, {
-            //             props: {
-            //                 animationDuration: 2
-            //             },
-            //             ref: `picker_scroller_${index}`
-            //         })
-    
-            //         item.map((inner, innerIndex) => {
-            //             $scroller.push(hx(`div.x-picker-col-item`, {
-            //                 class: {
-            //                     'x-picker-col-item-selected': innerIndex == this.pickerIndex[index]
-            //                 }
-            //             }, [inner]))
-            //         })
-    
-            //         $col
-            //         .push(hx(`div.x-picker-col-mask`))
-            //         .push(hx(`div.x-picker-col-indicator`))
-            //         .push($scroller)
-    
-            //         $main.push($col)
-            //     }) 
-            // }
 
             this.data.map((_, index) => {
                 let $col = hx(`div.x-picker-col-${index}`)
