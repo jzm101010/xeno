@@ -1,0 +1,37 @@
+extends ./_layout
+
+block title
+    | Datepicker
+
+block content
+    x-header(title="Datepicker")
+    div(style="margin-top: 10px")
+        x-datepicker(title="date", v-model="select1")
+        x-datepicker(title="datetime", type="datetime", v-model="select2")
+        x-datepicker(title="time", type="time",  v-model="select3")
+        x-datepicker(title="disabled",  v-model="select4" disabled)
+        
+
+block script
+  script.
+    new Vue({
+      el: '#app',
+      data () {
+        return {
+            select1: '',
+            select2: '',
+            select3: '',
+            select4: '',
+            select5: '',
+        }
+      },
+      methods: {
+          onCancel () {
+              this.picker.single = false
+          },
+          onConfirm (value, title) {
+              alert(value)
+              alert(title)
+          }
+      }
+    })

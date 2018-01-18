@@ -1,0 +1,6 @@
+.x-datepicker-disabled {
+    .x-list-mask::after {
+        background-color: $color-gray-light;
+        opacity: 0.3;
+    }
+}

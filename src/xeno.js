@@ -6,5 +6,6 @@ import './components/button/_button.js'
 import './components/scroller/_scroller.js'
 import './components/picker/_picker.js'
 import './components/select/_select.js'
+import './components/datepicker/_datepicker.js'
 
 Vue.use(vueTouchFeedback)

@@ -2,7 +2,8 @@ import {hx} from '../../common/_tools.js'
 
 const item_height = 34
 
-const refList = ['picker_scroller_0', 'picker_scroller_1', 'picker_scroller_2']
+const refList = ['picker_scroller_0', 'picker_scroller_1', 'picker_scroller_2', 'picker_scroller_3', 'picker_scroller_4']
+const dateUnit = {year: '年', month: '月', day: '日', hour: '时', minute: '分'}
 
 var XPicker = Vue.extend({
     props: {
@@ -11,7 +12,11 @@ var XPicker = Vue.extend({
         title: String,
         disable: Boolean,
         cascader: Boolean,
-
+        datepicker: Boolean,
+        datepickerType: {
+            type: String,
+            default: 'date'
+        },
         onChange: {
             type: Function,
             default: _ => {
@@ -20,101 +25,131 @@ var XPicker = Vue.extend({
         },
     },
     computed: {
-        pickerDataTitle () {
-            var flag = false
+        datamap () {
             var arr = []
 
-            // this.data.map(item => {
-            //     if (typeof item == 'object') {
-            //         flag = true
-            //         let child = []
-            //         item.map(_ => {
-            //             if(this.cascader) {
-            //                 child.push([_.label, _.parentId])
-            //             }else {
-            //                 child.push(_.label)
-            //             }
-            //         })
-
-            //         arr.push(child)
-            //     }
-            // })
-
-            this.data.map(item => {
-                if (typeof item == 'object') {
-                    flag = true
-
-                    if (this.cascader) {
-                        var child = {}
-                        item.map(_ => {
-                            if (_.parentId !== undefined) {
-                                if (child[_.parentId]) {
-                                    child[_.parentId].push(_.label)
-                                }else {
-                                    child[_.parentId] = []
-                                    child[_.parentId].push(_.label)
-                                }
-                            }else {
-                                if (child['first']) {
-                                    child['first'].push(_.label)
-                                }else {
-                                    child['first'] = []
-                                    child['first'].push(_.label)
-                                }
-                            }
-                        })
-                    }else {
-                        var child = []
-                        item.map(_ => {
-                            child.push(_.label)
-                        })
-                    }
-
-                    arr.push(child)
+            if (this.datepicker) {
+                switch (this.datepickerType) {
+                    case 'date':
+                        arr = [this.yearCol, this.monthCol, this.dayCol]
+                        break;
+                    case 'datetime':
+                        arr = [this.yearCol, this.monthCol, this.dayCol, this.hourCol, this.minuteCol]
+                        break;
+                    case 'time':
+                        arr = [this.hourCol, this.minuteCol]
+                        break;
+                    default:
+                        break;
                 }
-            })
+            } else {
+                arr = this.data.map(_ => {return _})
+            }
 
-            return flag ? arr : ['暂无数据']
+            return arr
         },
-        pickerDataValue () {
-            var flag = false
+        dateList () {
             var arr = []
 
-            this.data.map(item => {
-                if (typeof item == 'object') {
-                    flag = true
-
-                    if (this.cascader) {
-                        var child = {}
-                        item.map(_ => {
-                            if (_.parentId !== undefined) {
-                                if (child[_.parentId]) {
-                                    child[_.parentId].push(_.value)
-                                }else {
-                                    child[_.parentId] = []
-                                    child[_.parentId].push(_.value)
-                                }
-                            }else {
-                                if (child['first']) {
-                                    child['first'].push(_.value)
-                                }else {
-                                    child['first'] = []
-                                    child['first'].push(_.value)
-                                }
-                            }
-                        })
-                    }else {
-                        var child = []
-                        item.map(_ => {
-                            child.push(_.value)
-                        })
-                    }
-
-                    arr.push(child)
+            if (this.datepicker) {
+                switch (this.datepickerType) {
+                    case 'date':
+                        arr = ['year', 'month', 'day']
+                        break;
+                    case 'datetime':
+                        arr = ['year', 'month', 'day', 'hour', 'minute']
+                        break;
+                    case 'time':
+                        arr = ['hour', 'minute']
+                        break;
+                    default:
+                        break;
                 }
-            })
+            }
 
-            return flag ? arr : ['暂无数据']
+            return arr
+        },
+        todayList () {
+            var arr = []
+            
+            if (this.datepicker) {
+                switch (this.datepickerType) {
+                    case 'date':
+                        arr = [this.today.getFullYear(), this.today.getMonth() + 1, this.today.getDate()]
+                        break;
+                    case 'datetime':
+                        arr = [this.today.getFullYear(), this.today.getMonth() + 1, this.today.getDate(), this.today.getHours(), this.today.getMinutes()]
+                        break;
+                    case 'time':
+                        arr = [this.today.getHours(), this.today.getMinutes()]
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            return arr
+        },
+        yearCol () {
+            var years = []
+            if (this.datepicker && this.datepickerType != 'time') {
+                var range = this.today.getFullYear() - 1975
+                var start = this.today.getFullYear() - range
+                var end = this.today.getFullYear() + range
+                for (let index = start; index <= end; index++) {
+                    years.push(index)
+                }
+            }
+            
+            return years
+        },
+        monthCol () {
+            var month = []
+
+            if (this.datepicker && this.datepickerType != 'time') {
+                for (let index = 1; index <= 12; index++) {
+                    month.push(index)
+                }
+            }
+
+            return month
+        },
+        dayCol () {
+            var day = []
+            
+
+            if (this.datepicker && this.datepickerType != 'time') {
+                if(this.firstWatch) {
+                    day = this.getDayArr(this.todayList[1], this.todayList[0])
+                }else {
+                    day = this.getDayArr(this.monthCol[this.pickerIndex[1]], this.yearCol[this.pickerIndex[0]])
+                }
+                
+            }
+
+            return day
+        },
+        hourCol () {
+            var hour = []
+
+            if (this.datepicker && this.datepickerType != 'date') {
+                for (let index = 0; index <= 23; index++) {
+                    hour.push(index)
+                }
+            }
+
+            return hour
+        },
+        minuteCol () {
+            var minute = []
+
+            if (this.datepicker && this.datepickerType != 'date') {
+                for (let index = 1; index <= 60; index++) {
+                    minute.push(index)
+                }
+            }
+
+            return minute
         },
         cascaderCol_0Title () {
             var flag = false
@@ -212,7 +247,18 @@ var XPicker = Vue.extend({
             pickerPos: undefined,
             pickerIndex: [],
             chooseVal: [],
-            chooseTitle: []
+            chooseTitle: [],
+            today: new Date(),
+        }
+    },
+    watch: {
+        value (val) {
+            if (val) {
+                this.firstWatch = true
+                setTimeout(_=> {
+                    this.updatePicker()
+                }, 100)
+            }
         }
     },
     methods: {
@@ -220,18 +266,50 @@ var XPicker = Vue.extend({
             this.chooseVal = []
             this.chooseTitle = []
             this.pickerIndex.map((item, index) => {
-                this.chooseVal.push(this[`cascaderCol_${index}Value`][item])
-                this.chooseTitle.push(this[`cascaderCol_${index}Title`][item])
+                if (this.datepicker) {
+                    this.chooseTitle.push(this[`${this.dateList[index]}Col`][item])
+                } else {
+                    this.chooseVal.push(this[`cascaderCol_${index}Value`][item])
+                    this.chooseTitle.push(this[`cascaderCol_${index}Title`][item])
+                }
+                
             })
-            this.$emit('confirm', this.chooseVal, this.chooseTitle)
+            this.$emit('confirm', this.chooseTitle, this.chooseVal)
             this.onCancel()
         },
         onCancel () {
             this.firstWatch = true
             this.$emit('input', false)
         },
+        getDayArr (month, year) {
+            var day = []
+            var dayCount = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month-1]
+            
+            if (month == 2) {
+                var isLeapYear = ( (year % 4 == 0) && (year % 100 != 0) ) || (year % 400 == 0)
+
+                dayCount = isLeapYear ? 29 : dayCount
+            }
+
+            for (let index = 1; index <= dayCount; index++) {
+                day.push(index)
+            }
+
+            return day
+        },
         updatePicker () {
             if (this.firstWatch) {
+                if(this.datepicker && this.pickerIndex.length < 1) {
+                    this.datamap.map((item, index) => {
+                        item.map((inner, innerIndex) => {
+                            if(inner == this.todayList[index]) {
+                                this.pickerIndex.push(innerIndex)
+                            }
+                        })
+                        
+                    })
+                }
+
                 refList.map((key, refIdx) => {
                     if (this.$refs[key] && (this.pickerIndex[refIdx] || this.pickerIndex[refIdx] === 0)) {
                         this.$refs[key].scrollTo(0, item_height * this.pickerIndex[refIdx])
@@ -242,11 +320,13 @@ var XPicker = Vue.extend({
                 this.pickerIndex = []
                 refList.map((key, refIdx) => {
                     if (this.$refs[key]) {
-                        var index = Math.round((this.$refs[key].getPosition().top)/34)
+                        let index = Math.round((this.$refs[key].getPosition().top)/34)
+                        let targetCol = this.datepicker ? `${this.dateList[refIdx]}Col` : `cascaderCol_${refIdx}Title`
                         index = index < 0 ? 0 : index
+                        
 
-                        if(index >= this[`cascaderCol_${refIdx}Title`].length) {
-                            index = this[`cascaderCol_${refIdx}Title`].length - 1
+                        if(index >= this[targetCol].length) {
+                            index = this[targetCol].length - 1
                         }
                         this.pickerIndex.push(index)
                         this.$refs[key].scrollTo(0, item_height * this.pickerIndex[refIdx])
@@ -280,21 +360,19 @@ var XPicker = Vue.extend({
             )
             .push(hx(`div.hairline-bottom`))
 
-            this.data.map((_, index) => {
+            this.datamap.map((_, index) => {
                 let $col = hx(`div.x-picker-col-${index}`)
                 let $scroller = hx(`x-scroller`, {
-                    props: {
-                        animationDuration: 2
-                    },
                     ref: `picker_scroller_${index}`
                 })
+                let targetCol = this.datepicker ? `${this.dateList[index]}Col` : `cascaderCol_${index}Title`
 
-                this[`cascaderCol_${index}Title`].map((inner, innerIndex) => {
+                this[targetCol].map((inner, innerIndex) => {
                     $scroller.push(hx(`div.x-picker-col-item`, {
                         class: {
                             'x-picker-col-item-selected': innerIndex == this.pickerIndex[index]
                         }
-                    }, [inner]))
+                    }, [inner + dateUnit[this.dateList[index]]]))
                 })
 
                 $col
@@ -335,9 +413,10 @@ var XPicker = Vue.extend({
             if(this.$refs.picker_scroller_0) {
                 this.updatePicker()
             }
-        }, 100)
+        }, 1000)
     },
     destroyed () {
+        clearInterval(this.timer)
     }     
 })
 

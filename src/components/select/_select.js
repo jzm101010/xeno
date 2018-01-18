@@ -41,7 +41,7 @@ var XSelect = Vue.extend({
             }
             this.pickerShow = !this.pickerShow
         },
-        selectConfirm (value, title) {
+        selectConfirm (title, value) {
             this.selectTitle = undefined
             this.selectVal = undefined
             title.map(str => {
@@ -53,6 +53,7 @@ var XSelect = Vue.extend({
             })
             
             this.selectVal = value.length > 1 ? value : value[0]
+            this.$emit('input', this.selectVal)
         }
     },
     render (h) {

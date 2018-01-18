@@ -15,10 +15,12 @@ block content
     .margin-10
         x-button(type="warning", long) warning 
     .margin-10
-        x-button(icon="plus-round") 添加
-        x-button(icon="plus-round", icon-pos="after") 添加
+        x-button() default
+        x-button(icon="plus-round") add
+        x-button(icon="plus-round", icon-pos="after") add
         x-button(icon="plus-round")
-        x-button(icon="plus-round", loading) 提交信息
+    .margin-10
+        x-button(icon="plus-round", loading) submit
 
 block script
   script.
