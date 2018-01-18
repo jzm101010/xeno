@@ -1,0 +1,32 @@
+.x-page {
+    @include display-flex();
+    @include align-items();
+    overflow: hidden;
+
+    &-wrap {
+        @include flex();
+        min-width: 10 * $bp;
+        margin-left: 8 * $bp;
+    }
+
+    &-wrap:first-child {
+        margin-left: 0
+    }
+
+    &-prev {
+        text-align: left;
+    }
+
+    &-next {
+        text-align: right;
+    }
+
+    &-pagination {
+        font-size: 18 * $bp;
+        text-align: center;
+
+        .active {
+            color: $color-primary;
+        }
+    }
+}

@@ -1,0 +1,39 @@
+extends ./_layout
+
+block title
+    | Pagination
+
+block content
+    x-header(title="Pagination")
+    .margin-10 normal
+    .margin-10
+        x-page(:total="55", v-model="page1", @change="pageChange")
+    .margin-10 button
+    .margin-10
+        x-page(:total="55", mode="button", v-model="page2")
+    .margin-10 number
+    .margin-10
+        x-page(:total="55", mode="number", v-model="page3")
+    .margin-10 自定义文案
+    .margin-10
+        x-page(:total="55", v-model="page4", :button-text="['上一步', '下一步']")
+    
+
+block script
+  script.
+    new Vue({
+      el: '#app',
+      data () {
+        return {
+            page1: 1,
+            page2: 1,
+            page3: 1,
+            page4: 1
+        }
+      },
+      methods: {
+          pageChange (num) {
+              console.log(num)
+          }
+      }
+    })
