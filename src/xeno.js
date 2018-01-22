@@ -8,5 +8,6 @@ import './components/picker/_picker.js'
 import './components/select/_select.js'
 import './components/datepicker/_datepicker.js'
 import './components/pagination/_pagination.js'
+import './components/dropdown/_dropdown.js'
 
 Vue.use(vueTouchFeedback)

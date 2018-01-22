@@ -32,14 +32,14 @@ var XPagination = Vue.extend({
     },
     methods: {
         goPrev () {
-            var v = this.value
-            this.$emit('input', --v)
-            this.$emit('change', --v)
+            var v = this.value - 1
+            this.$emit('input', v)
+            this.$emit('change', v)
         },
         goNext () {
-            var v = this.value
-            this.$emit('input', ++v)
-            this.$emit('change', ++v)
+            var v = this.value + 1
+            this.$emit('input', v)
+            this.$emit('change', v)
         },
     },
     render (h) {

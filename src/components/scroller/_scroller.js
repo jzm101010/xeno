@@ -14,8 +14,6 @@ var XSroller = Vue.extend({
         onRefresh: Function,
         pickerPos: Function,
 
-        easyMode: Boolean,
-
         snapping: {
             type: Boolean,
             default: false
@@ -341,21 +339,6 @@ var XSroller = Vue.extend({
     mounted () {
         this.container = document.getElementsByClassName(`container-${this.containerId}`)[0]
         this.content = document.getElementsByClassName(`content-${this.contentId}`)[0]
-
-        // if(this.easyMode) {
-        //     this.scroller = new Scroller(getRender(this.content), {
-        //         scrollingX: false,
-        //         snapping: this.snapping,
-        //     })
-        // }else {
-        //     this.scroller = new Scroller(getRender(this.content), {
-        //         scrollingX: false,
-        //         snapping: this.snapping,
-        //         animating: this.animating,
-        //         animationDuration: this.animationDuration,
-        //         bouncing: this.bouncing
-        //     })
-        // }
 
         this.scroller = new Scroller(getRender(this.content), {
             scrollingX: false,

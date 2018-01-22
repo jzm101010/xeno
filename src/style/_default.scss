@@ -65,6 +65,7 @@ $v-spacing-xl: 21 * $bp;
 
 // 阴影
 $popup-shadow: 0 1 * $bp 6 * $bp rgba(0,0,0,.2);
+$mask-color: rgba(0, 0, 0, 0.4);
 
 $height: 32 * $bp;
 $minHeight: 24 * $bp;
@@ -104,7 +105,11 @@ $picker-item-selected-font-size: 18 * $bp;
 $picker-col-height: 238 * $bp;
 $picker-col-item-height: 34 * $bp;
 
-
+// Dropdown
+$dropdown-arrow-width: 7 * $bp;
+$dropdown-font-size: 15 * $bp;
+$dropdown-box-shadow: 0 0 2 * $bp rgba(0, 0, 0, 0.21);
+$dropdown-item-height: 39 * $bp;
 
 // 初始化
 * {

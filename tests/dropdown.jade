@@ -1,0 +1,102 @@
+extends ./_layout
+
+block title
+    | Dropdown
+
+block content
+    x-header(title="Dropdown")
+        div(slot="headerRight")
+            x-dropdown(position="bottomRight", ref="popover", mask)
+                div(slot="label")
+                    x-icon(type="ios-more", is-button)
+                x-dropdown-item(:click="click1") no icon
+                x-dropdown-item(:click="click2", icon="social-github") have icon
+    .margin-10.flex
+        .flex-item
+            x-dropdown(label="normal", position="rightBottom")
+                x-dropdown-item(:click="click1") no icon
+                x-dropdown-item(:click="click2", icon="social-github") have icon
+        .flex-item
+            x-dropdown(label="normal", position="bottom")
+                x-dropdown-item(:click="click1") no icon
+                x-dropdown-item(:click="click2", icon="social-github") have icon
+        .flex-item
+            x-dropdown(label="normal", position="leftBottom")
+                x-dropdown-item(:click="click1") no icon
+                x-dropdown-item(:click="click2", icon="social-github") have icon
+
+    .margin-10.flex(style="padding-top: 20px;")
+        .flex-item
+            x-dropdown(label="normal", position="right")
+                x-dropdown-item(:click="click1") no icon
+                x-dropdown-item(:click="click2", icon="social-github") have icon
+        .flex-item
+            x-dropdown(position="bottom", style="margin: 0 18px", ref="popover2")
+                div(slot="label", style="font-size: 14px;")
+                    | 自定义Label内容
+                x-dropdown-item(:click="click1") no icon
+                x-dropdown-item(:click="click2", icon="social-github") have icon
+                x-dropdown-item(:click="click2", icon="social-github") have icon
+                x-dropdown-item(:click="click2", icon="social-github") have icon
+        .flex-item
+            x-dropdown(label="normal", position="left")
+                x-dropdown-item(:click="click1") no icon
+                x-dropdown-item(:click="click2", icon="social-github") have icon
+
+    .margin-10.flex(style="padding-top: 20px;")
+        .flex-item
+            x-dropdown(label="normal", position="rightTop")
+                x-dropdown-item(:click="click1") no icon
+                x-dropdown-item(:click="click2", icon="social-github") have icon
+        .flex-item
+            x-dropdown(label="normal", position="top", style="margin: 0 10px")
+                x-dropdown-item(:click="click1") no icon
+                x-dropdown-item(:click="click2", icon="social-github") have icon
+        .flex-item
+            x-dropdown(label="normal", position="leftTop")
+                x-dropdown-item(:click="click1") no icon
+                x-dropdown-item(:click="click2", icon="social-github") have icon
+    
+    .margin-10.flex(style="padding-top: 20px;")
+        .flex-item
+            x-dropdown(label="normal", position="topLeft")
+                x-dropdown-item(:click="click1") no icon
+                x-dropdown-item(:click="click2", icon="social-github") have icon
+        .flex-item
+            x-dropdown(label="normal", position="topRight", style="margin-left: 128px")
+                x-dropdown-item(:click="click1") no icon
+                x-dropdown-item(:click="click2", icon="social-github") have icon
+ 
+    .margin-10.flex(style="padding-top: 20px;")
+        .flex-item
+            x-dropdown(label="normal", position="bottomLeft")
+                x-dropdown-item(:click="click1") no icon
+                x-dropdown-item(:click="click2", icon="social-github") have icon
+        .flex-item
+            x-dropdown(label="normal", position="bottomRight", style="margin-left: 128px")
+                x-dropdown-item(:click="click1") no icon
+                x-dropdown-item(:click="click2", icon="social-github") have icon
+
+block script
+  script.
+    new Vue({
+      el: '#app',
+      data () {
+        return {
+        }
+      },
+      methods: {
+          click1 () {
+              console.log(1)
+          },
+          click2 () {
+              console.log(2)
+          },
+          click3 () {
+              this.$refs.popover.changeExpand()
+          },
+          click4 () {
+              this.$refs.popover2.changeExpand()
+          }
+      }
+    })
