@@ -7,7 +7,7 @@ block content
     .margin-10
         x-list(title="Title", is-title)
         x-list(title="normal")
-        x-list(title="list title", value="list value")
+        x-list(title="list title", sub-title="this is subTitle", value="list value")
         x-list(title="icon left", value="icon right", left-icon="social-github", right-icon="person")
         x-list(title="slot iconLeft icon-xs", value="slot iconRight icon-lg")
             div(slot="leftIcon")
@@ -16,7 +16,7 @@ block content
                 x-icon(type="person", size="lg")
         x-list(title="textarea", value="just like you see\nthis is a textarea", type="textarea")
         x-list(title="phone number", value="13813299675", is-tel)
-        x-list(title="link", value="click", is-link)
+        x-list(title="link", value="click", is-link, :on-click="click1")
 
         x-list(title="No Border", is-title)
         x-list(title="no bottom border", no-bottom-border)
@@ -30,5 +30,10 @@ block script
       data () {
         return {
         }
+      },
+      methods: {
+          click1 () {
+              console.log(1)
+          }
       }
     })

@@ -13,24 +13,24 @@ block content
                 x-dropdown-item(:click="click2", icon="social-github") have icon
     .margin-10.flex
         .flex-item
-            x-dropdown(label="normal", position="rightBottom")
+            x-dropdown(label="rightBottom", position="rightBottom", size="small")
+                x-dropdown-item(:click="click1") no icon
+                x-dropdown-item(:click="click2", icon="social-github") have icon
+        .flex-item.flex-item-center
+            x-dropdown(label="bottom", position="bottom", size="small")
                 x-dropdown-item(:click="click1") no icon
                 x-dropdown-item(:click="click2", icon="social-github") have icon
         .flex-item
-            x-dropdown(label="normal", position="bottom")
-                x-dropdown-item(:click="click1") no icon
-                x-dropdown-item(:click="click2", icon="social-github") have icon
-        .flex-item
-            x-dropdown(label="normal", position="leftBottom")
+            x-dropdown(label="leftBottom", position="leftBottom", size="small")
                 x-dropdown-item(:click="click1") no icon
                 x-dropdown-item(:click="click2", icon="social-github") have icon
 
     .margin-10.flex(style="padding-top: 20px;")
         .flex-item
-            x-dropdown(label="normal", position="right")
+            x-dropdown(label="right", position="right", size="small")
                 x-dropdown-item(:click="click1") no icon
                 x-dropdown-item(:click="click2", icon="social-github") have icon
-        .flex-item
+        .flex-item.flex-item-center
             x-dropdown(position="bottom", style="margin: 0 18px", ref="popover2")
                 div(slot="label", style="font-size: 14px;")
                     | 自定义Label内容
@@ -39,41 +39,41 @@ block content
                 x-dropdown-item(:click="click2", icon="social-github") have icon
                 x-dropdown-item(:click="click2", icon="social-github") have icon
         .flex-item
-            x-dropdown(label="normal", position="left")
+            x-dropdown(label="left", position="left", size="small")
                 x-dropdown-item(:click="click1") no icon
                 x-dropdown-item(:click="click2", icon="social-github") have icon
 
     .margin-10.flex(style="padding-top: 20px;")
         .flex-item
-            x-dropdown(label="normal", position="rightTop")
+            x-dropdown(label="rightTop", position="rightTop", size="small")
+                x-dropdown-item(:click="click1") no icon
+                x-dropdown-item(:click="click2", icon="social-github") have icon
+        .flex-item.flex-item-center
+            x-dropdown(label="top", position="top", style="margin: 0 10px", size="small")
                 x-dropdown-item(:click="click1") no icon
                 x-dropdown-item(:click="click2", icon="social-github") have icon
         .flex-item
-            x-dropdown(label="normal", position="top", style="margin: 0 10px")
-                x-dropdown-item(:click="click1") no icon
-                x-dropdown-item(:click="click2", icon="social-github") have icon
-        .flex-item
-            x-dropdown(label="normal", position="leftTop")
+            x-dropdown(label="leftTop", position="leftTop", size="small")
                 x-dropdown-item(:click="click1") no icon
                 x-dropdown-item(:click="click2", icon="social-github") have icon
     
     .margin-10.flex(style="padding-top: 20px;")
         .flex-item
-            x-dropdown(label="normal", position="topLeft")
+            x-dropdown(label="topLeft", position="topLeft", size="small")
                 x-dropdown-item(:click="click1") no icon
                 x-dropdown-item(:click="click2", icon="social-github") have icon
         .flex-item
-            x-dropdown(label="normal", position="topRight", style="margin-left: 128px")
+            x-dropdown(label="topRight", position="topRight", size="small")
                 x-dropdown-item(:click="click1") no icon
                 x-dropdown-item(:click="click2", icon="social-github") have icon
  
     .margin-10.flex(style="padding-top: 20px;")
         .flex-item
-            x-dropdown(label="normal", position="bottomLeft")
+            x-dropdown(label="bottomLeft", position="bottomLeft", size="small")
                 x-dropdown-item(:click="click1") no icon
                 x-dropdown-item(:click="click2", icon="social-github") have icon
         .flex-item
-            x-dropdown(label="normal", position="bottomRight", style="margin-left: 128px")
+            x-dropdown(label="bottomRight", position="bottomRight", size="small")
                 x-dropdown-item(:click="click1") no icon
                 x-dropdown-item(:click="click2", icon="social-github") have icon
 

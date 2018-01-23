@@ -6,10 +6,6 @@ var XList = Vue.extend({
             type: String,
             default: 'text'
         },
-        align: {
-            type: String,
-            default: 'center'
-        },
         isTel: Boolean,
         isTitle: Boolean,
         isLink: Boolean,
@@ -17,26 +13,25 @@ var XList = Vue.extend({
         noBottomBorder: Boolean,
         rightIcon: String,
         leftIcon: String,
-        onClick: Function,
         title: [Number, String],
-        subTitle: [Number, String],
-        value: [Number, String],
+        value: [Number, String]
     },
     computed: {
         cls () {
             var cls = ['x-list']
+            var $leftIconSlot = this.$slots.leftIcon
+            var $rightIconSlot = this.$slots.rightIcon
+
+            if (this.leftIcon || $leftIconSlot) {
+                cls.push('x-list-hasIcon-left')
+            }
+
+            if (this.rightIcon || this.isLink || $leftIconSlot) {
+                cls.push('x-list-hasIcon-right')
+            }
 
             if (this.isTitle) {
                 cls.push('x-list-title')
-            }
-
-            return cls
-        },
-        lineCls () {
-            var cls = ['x-list-line', `x-list-line-${this.align}`]
-
-            if (this.subTitle || +this.subTitle === 0) {
-                cls.push('x-list-line-multiple')
             }
 
             return cls
@@ -60,40 +55,12 @@ var XList = Vue.extend({
             }
         }
     },
-    methods: {
-        clickEvent () {
-            if (this.onClick) {
-                this.onClick()
-            }
-        }
-    },
     render (h) {
         var me = this
         var $leftIconSlot = this.$slots.leftIcon
         var $rightIconSlot = this.$slots.rightIcon
-        var $line = hx(`div.${this.lineCls.join('+')}`)
-        var $content = hx(`div.x-list-content`, {}, [this.title])
-        if (this.isLink) {
-            var $list = hx(`div.${this.cls.join('+')}`, {
-                directives: [
-                    {
-                      name: 'fb',
-                      value: {cls: 'x-list-active'}
-                    }
-                ],
-                on: {
-                    click: this.clickEvent
-                }
-            })
-        }else {
-            var $list = hx(`div.${this.cls.join('+')}`, {
-                on: {
-                    click: this.clickEvent
-                }
-            })
-        }
-        
-        
+
+        var $list = hx(`div.${this.cls.join('+')}`)
 
         if (!this.noBottomBorder) {
             $list.push(
@@ -104,6 +71,24 @@ var XList = Vue.extend({
         if (!this.noTopBorder) {
             $list.push(
                 hx('div.hairline-top')
+            )
+        }
+
+        $list.push(
+            hx('span.x-list-text', {}, [this.title])
+        )
+
+        $list.push(
+            hx(`span.x-list-value + ${this.valueCls.join('+')}`, {}, [this.value])
+        )
+
+        if (this.isTel) {
+            $list.push(
+                hx('a.x-list-mask-tel', {attrs: {href: 'tel:' + this.telValue}})
+            )
+        } else {
+            $list.push(
+                hx('span.x-list-mask')
             )
         }
 
@@ -122,35 +107,6 @@ var XList = Vue.extend({
                 hx(`div.x-list-icon + x-list-icon-left`, {}, [$leftIconSlot])
             )
         }
-
-        if (this.subTitle || +this.subTitle === 0) {
-            $content.push(
-                hx(`div.x-list-subTitle`, {}, [this.subTitle])
-            )
-                
-        }
-
-        $line.push(
-            $content
-        ).push(
-            hx('div.x-list-extra').push(
-                hx(`span.x-list-value + ${this.valueCls.join('+')}`, {}, [this.value])
-            )
-        )
-
-        $list.push($line)
-
-        if (this.isTel) {
-            $list.push(
-                hx('a.x-list-mask-tel', {attrs: {href: 'tel:' + this.telValue}})
-            )
-        } else {
-            $list.push(
-                hx('span.x-list-mask')
-            )
-        }
-
-        
 
         if (this.rightIcon && !this.isLink) {
             $list.push(

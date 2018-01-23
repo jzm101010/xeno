@@ -1,0 +1,101 @@
+.x-list {
+    position: relative;
+    z-index: 2;
+    display: block;
+    margin: -1 * $bp 0;
+    padding: 18 * $bp 16 * $bp;
+    font-size: 14 * $bp;
+    line-height: 14 * $bp;
+    color: #444;
+    min-height: 50 * $bp;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-width: 0;
+    background-color: #fff;
+
+    .x-list-icon {
+        @include display-flex();
+        @include align-items();
+        position: absolute;
+        top: 0;
+        height: 100%;
+        font-size: 24 * $bp;
+    }
+
+    
+
+    .x-icon::before {
+        display: block;
+        width: 32 * $bp;
+        text-align: center;
+    }
+
+    .x-list-icon-left {
+        left: 11 * $bp;
+    }
+
+    .x-list-icon-right {
+        right: 5 * $bp;
+        height: 48 * $bp;
+    }
+
+    .x-list-value {
+        float: right;
+        color: #aaa;
+        font-size: 14 * $bp;
+        overflow: hidden;
+        width: auto;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .x-list-tel {
+        color: #4ba1e2 !important;
+    }
+
+    .x-list-mask::after, .x-list-mask-tel {
+        background-color: #000;
+        content: " ";
+        opacity: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+    }
+
+    .x-list-textarea {
+        white-space: pre-wrap;
+        text-align: left;
+        line-height: 18 * $bp;
+        max-width: 280 * $bp;
+        word-break: break-word;
+    }
+}
+
+.x-list-hasIcon-left {
+    padding-left: 54 * $bp;
+}
+
+.x-list-hasIcon-right {
+    padding-right: 54 * $bp;
+
+    .x-list-value {
+        margin-right: -16 * $bp;
+    }
+}
+
+.x-list-title {
+    margin-top: 10 * $bp;
+    min-height: 36 * $bp;
+    padding-top: 11 * $bp;
+    padding-bottom: 11 * $bp;
+    padding-left: 10 * $bp;
+}
+
+.arrow-gray {
+    color: #ddd;
+}
+
+

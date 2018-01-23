@@ -36,7 +36,13 @@ html.no-js
       }
       .flex-item {
         flex: 1;
+        text-align: left;
+      }
+      .flex-item-center {
         text-align: center;
+      }
+      .flex>.flex-item:last-child {
+        text-align: right;
       }
   body
     div#app

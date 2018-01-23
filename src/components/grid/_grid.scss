@@ -1,0 +1,31 @@
+.x-row {
+    @include clear();
+    position: relative;
+  }
+  
+  .x-col {
+    float: left;
+  }
+  
+  @for $i from 1 through 24 {
+    .x-col-span-#{$i} {
+      width: 100% / (24 / $i);
+    }
+  
+    .x-col-offset-#{$i} {
+      margin-left: 100% / (24 / $i);
+    }
+  }
+  
+  .x-row-flex {
+    @include display-flex();
+  
+    &:before,
+    &:after {
+      display: none;
+    }
+  
+    .x-col {
+      float: none;
+    }
+  }

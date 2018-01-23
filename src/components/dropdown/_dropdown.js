@@ -7,7 +7,8 @@ var XDropdown = Vue.extend({
         position: {
             type: String,
             default: 'top'
-        }
+        },
+        size: String,
     },
     computed: {
        cls () {
@@ -58,6 +59,7 @@ var XDropdown = Vue.extend({
                     props: {
                         icon: this.isExpand ? 'arrow-up-b' : 'arrow-down-b',
                         iconPos: 'after',
+                        size: me.size
                     },
                     nativeOn: {
                         click: me.changeExpand
