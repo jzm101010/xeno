@@ -1,6 +1,9 @@
 .x-list {
     @include display-flex();
     @include align-items();
+    // @include hairline('top');
+    // @include hairline('bottom');
+    margin: -1 * $bp 0;
     position: relative;
     padding-left: 15 * $bp;
     min-height: 44 * $bp;
@@ -31,10 +34,10 @@
     }
 
     .x-list-extra {
-        -webkit-flex-basis: 36%;
-        -ms-flex-preferred-size: 36%;
-        flex-basis: 36%;
-        color: #888;
+        -webkit-flex-basis: 45%;
+        -ms-flex-preferred-size: 45%;
+        flex-basis: 45%;
+        color: $color-gray;
         font-size: 16 * $bp;
         line-height: 1.5;
         text-align: right;
@@ -62,7 +65,7 @@
     }
 
     .x-list-subTitle {
-        color: #888;
+        color: $color-gray;
         font-size: 15 * $bp;
         line-height: 1.5;
         margin-top: 6 * $bp;

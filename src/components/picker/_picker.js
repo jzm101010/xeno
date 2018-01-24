@@ -372,7 +372,7 @@ var XPicker = Vue.extend({
                         class: {
                             'x-picker-col-item-selected': innerIndex == this.pickerIndex[index]
                         }
-                    }, [inner + dateUnit[this.dateList[index]]]))
+                    }, [dateUnit[this.dateList[index]] ? inner + dateUnit[this.dateList[index]] : inner]))
                 })
 
                 $col
