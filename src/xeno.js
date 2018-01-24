@@ -10,5 +10,6 @@ import './components/select/_select.js'
 import './components/datepicker/_datepicker.js'
 import './components/pagination/_pagination.js'
 import './components/dropdown/_dropdown.js'
+import './components/checkbox/_checkbox.js'
 
 Vue.use(vueTouchFeedback)

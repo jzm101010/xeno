@@ -1,8 +1,6 @@
 .x-list {
     @include display-flex();
     @include align-items();
-    // @include hairline('top');
-    // @include hairline('bottom');
     margin: -1 * $bp 0;
     position: relative;
     padding-left: 15 * $bp;
@@ -119,6 +117,24 @@
 
 .x-list-active {
     background-color: $color-gray-light-extra;
+}
+
+.x-list-group-body {
+    position: relative;
+    margin: -1 * $bp 0;
+
+    &>.x-list:first-child {
+        .hairline-top {
+            display: none;
+        }
+    }
+}
+
+.x-list-group-header {
+    padding: 15 * $bp 15 * $bp 9 * $bp 15 * $bp;
+    font-size: 14 * $bp;
+    color: $color-gray;
+    width: 100%;
 }
 
 

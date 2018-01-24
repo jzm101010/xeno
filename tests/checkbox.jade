@@ -1,0 +1,37 @@
+extends ./_layout
+
+block title
+    | Checkbox
+
+block content
+    x-header(title="Checkbox")
+    div(style="margin-top: 10px")
+        x-checkbox(label="北京", :value="0", v-model="value1")
+        x-checkbox(label="上海", :value="1", v-model="value1")
+    div(style="margin-top: 10px")
+        x-checkbox-group(v-model="value2", header="Checkbox Group Header")
+            x-checkbox(label="北京", :value="0")
+            x-checkbox(label="上海", :value="1")
+            x-checkbox(label="广州", :value="2")
+        
+
+block script
+  script.
+    new Vue({
+      el: '#app',
+      data () {
+        return {
+            value1: [],
+            value2: []
+        }
+      },
+      methods: {
+          onCancel () {
+              this.picker.single = false
+          },
+          onConfirm (value, title) {
+              alert(value)
+              alert(title)
+          }
+      }
+    })

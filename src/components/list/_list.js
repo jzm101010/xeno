@@ -13,8 +13,15 @@ var XList = Vue.extend({
         isTel: Boolean,
         isTitle: Boolean,
         isLink: Boolean,
-        noTopBorder: Boolean,
-        noBottomBorder: Boolean,
+        borderTop: {
+            type: Boolean,
+            default: true,
+        },
+        borderBottom: {
+            type: Boolean,
+            default: true,
+        },
+        lineBorder: Boolean,
         rightIcon: String,
         leftIcon: String,
         onClick: Function,
@@ -95,14 +102,22 @@ var XList = Vue.extend({
         
         
 
-        if (!this.noBottomBorder) {
+        if (this.borderBottom && !this.lineBorder) {
             $list.push(
+                hx('div.hairline-bottom')
+            )
+        }else if (this.lineBorder) {
+            $line.push(
                 hx('div.hairline-bottom')
             )
         }
 
-        if (!this.noTopBorder) {
+        if (this.borderTop && !this.lineBorder) {
             $list.push(
+                hx('div.hairline-top')
+            )
+        }else if (this.lineBorder) {
+            $line.push(
                 hx('div.hairline-top')
             )
         }
@@ -187,4 +202,19 @@ var XList = Vue.extend({
     }
 })
 
+export var XListGroup = Vue.extend({
+    props: {
+        header: [String, Number]
+    },
+    render (h) {
+        var me = this
+        var $group = hx(`div.x-list-group`)
+        var $header = hx(`div.x-list-group-header`, {}, [this.header])
+        var $body = hx(`div.x-list-group-body`, {}, [this.$slots.default]).push(hx('div.hairline-top')).push(hx('div.hairline-bottom'))
+
+        return $group.push($header).push($body).resolve(h)
+    }
+})
+
 Vue.component('x-list', XList)
+Vue.component('x-list-group', XListGroup)

@@ -17,11 +17,10 @@ block content
         x-list(title="textarea", value="just like you see\nthis is a textarea", type="textarea")
         x-list(title="phone number", value="13813299675", is-tel)
         x-list(title="link", value="click", is-link, :on-click="click1")
-
-        x-list(title="No Border", is-title)
-        x-list(title="no bottom border", no-bottom-border)
-        x-list(title="no border", no-top-border, no-bottom-border)
-        x-list(title="no top border", no-top-border)
+        x-list-group(header="List Group")
+            x-list(title="no bottom border", left-icon="social-github", line-border)
+            x-list(title="no border", left-icon="social-github", line-border)
+            x-list(title="no top border", left-icon="social-github", line-border)
 
 block script
   script.

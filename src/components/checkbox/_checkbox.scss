@@ -1,0 +1,23 @@
+.x-checkbox-group-body {
+    position: relative;
+    margin: -1 * $bp 0;
+
+    &>.x-checkbox:first-child {
+        .hairline-top {
+            display: none;
+        }
+    }
+}
+
+.x-checkbox-group-header {
+    padding: 15 * $bp 15 * $bp 9 * $bp 15 * $bp;
+    font-size: 14 * $bp;
+    color: $color-gray;
+    width: 100%;
+}
+
+.x-checkbox-checked {
+    .x-icon {
+        color: $color-primary;
+    }
+}

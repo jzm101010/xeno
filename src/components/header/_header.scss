@@ -3,6 +3,7 @@ $header-height: 45 * $bp;
 .x-header {
     @include display-flex();
     @include align-items();
+    position: relative;
     height: $header-height;
     background-color: $color-primary;
     color: $color-black-light;
