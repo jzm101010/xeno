@@ -153,6 +153,35 @@ var XList = Vue.extend({
             )
         )
 
+        if (this.rightIcon && !this.isLink) {
+            $line.push(
+                hx(`div.x-list-icon + x-list-icon-right`).push(
+                    hx(`x-icon`, {
+                        props: {
+                            type: this.rightIcon
+                        }
+                    })
+                )
+            )
+        }else if (this.isLink) {
+            $line.push(
+                hx(`div.x-list-icon + x-list-icon-right`).push(
+                    hx(`x-icon`, {
+                        props: {
+                            type: 'ios-arrow-right'
+                        },
+                        style: {
+                            color: '#ddd'
+                        }
+                    })
+                )
+            )
+        }else if($rightIconSlot) {
+            $line.push(
+                hx(`div.x-list-icon + x-list-icon-right`, {}, [$rightIconSlot])
+            )
+        }
+
         $list.push($line)
 
         if (this.isTel) {
@@ -167,34 +196,7 @@ var XList = Vue.extend({
 
         
 
-        if (this.rightIcon && !this.isLink) {
-            $list.push(
-                hx(`div.x-list-icon + x-list-icon-right`).push(
-                    hx(`x-icon`, {
-                        props: {
-                            type: this.rightIcon
-                        }
-                    })
-                )
-            )
-        }else if (this.isLink) {
-            $list.push(
-                hx(`div.x-list-icon + x-list-icon-right`).push(
-                    hx(`x-icon`, {
-                        props: {
-                            type: 'ios-arrow-right'
-                        },
-                        style: {
-                            color: '#ddd'
-                        }
-                    })
-                )
-            )
-        }else if($rightIconSlot) {
-            $list.push(
-                hx(`div.x-list-icon + x-list-icon-right`, {}, [$rightIconSlot])
-            )
-        }
+        
 
         
         
@@ -202,7 +204,7 @@ var XList = Vue.extend({
     }
 })
 
-export var XListGroup = Vue.extend({
+var XListGroup = Vue.extend({
     props: {
         header: [String, Number]
     },

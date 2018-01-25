@@ -1,28 +1,28 @@
-.x-checkbox-group-body {
+.x-radio-group-body {
     position: relative;
     margin: -1 * $bp 0;
 
-    &>.x-checkbox:first-child {
+    &>.x-radio:first-child {
         .hairline-top {
             display: none;
         }
     }
 }
 
-.x-checkbox-group-header {
+.x-radio-group-header {
     padding: 15 * $bp 15 * $bp 9 * $bp 15 * $bp;
     font-size: 14 * $bp;
     color: $color-gray;
     width: 100%;
 }
 
-.x-checkbox-checked {
+.x-radio-checked {
     .x-icon {
         color: $color-primary;
     }
 }
 
-.x-checkbox-disabled {
+.x-radio-disabled {
     color: $color-gray;
     
     .x-list-content, .x-list-extra {

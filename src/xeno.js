@@ -11,5 +11,6 @@ import './components/datepicker/_datepicker.js'
 import './components/pagination/_pagination.js'
 import './components/dropdown/_dropdown.js'
 import './components/checkbox/_checkbox.js'
+import './components/radio/_radio.js'
 
 Vue.use(vueTouchFeedback)

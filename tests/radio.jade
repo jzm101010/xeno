@@ -1,0 +1,38 @@
+extends ./_layout
+
+block title
+    | Radio
+
+block content
+    x-header(title="Radio")
+    div(style="margin-top: 10px")
+        x-radio(label="北京", :value="0", v-model="value1")
+        x-radio(label="上海", :value="1", v-model="value1")
+    div(style="margin-top: 10px")
+        x-radio-group(v-model="value2", header="Radio Group Header")
+            x-radio(label="北京", :value="0")
+            x-radio(label="上海", :value="1")
+            x-radio(label="广州", :value="2")
+            x-radio(label="disable", :value="3", disabled)
+        
+
+block script
+  script.
+    new Vue({
+      el: '#app',
+      data () {
+        return {
+            value1: '',
+            value2: ''
+        }
+      },
+      methods: {
+          onCancel () {
+              this.picker.single = false
+          },
+          onConfirm (value, title) {
+              alert(value)
+              alert(title)
+          }
+      }
+    })
