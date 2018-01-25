@@ -19,6 +19,13 @@
         opacity: 1 !important;
     }
 
+    .x-badge {
+        position: absolute;
+        top: 2px;
+        left: 50%;
+        margin-left: 6px;
+    }
+
     .x-tabbar-item {
         @include display-flex();
         @include flex();

@@ -6,7 +6,7 @@ block title
 block content
     x-header(title="Tabbar")
     x-tabbar
-        x-tabbar-item(label="Message", icon="chatbox-working", @click.native="choose = 1", :selected="choose == 1")
+        x-tabbar-item(label="Message", icon="chatbox-working", @click.native="choose = 1", :selected="choose == 1", :badge="26")
         x-tabbar-item(label="Images", icon="images", @click.native="choose = 2", :selected="choose == 2")
         x-tabbar-item(label="My", icon="person", @click.native="choose = 3", :selected="choose == 3")
         x-tabbar-item(label="Card", icon="card", @click.native="choose = 4", :selected="choose == 4")

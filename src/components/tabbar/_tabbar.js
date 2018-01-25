@@ -63,6 +63,14 @@ var XTabbarItem = Vue.extend({
             )
         )
 
+        if (this.badge) {
+            $item.push(hx('x-badge', {
+                props: {
+                    value: this.badge
+                }
+            }))
+        }
+
         return $item.resolve(h)
     }
 })
