@@ -12,5 +12,6 @@ import './components/pagination/_pagination.js'
 import './components/dropdown/_dropdown.js'
 import './components/checkbox/_checkbox.js'
 import './components/radio/_radio.js'
+import './components/tabbar/_tabbar.js'
 
 Vue.use(vueTouchFeedback)

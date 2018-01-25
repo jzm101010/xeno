@@ -106,10 +106,6 @@ var XList = Vue.extend({
             $list.push(
                 hx('div.hairline-bottom')
             )
-        }else if (this.lineBorder) {
-            $line.push(
-                hx('div.hairline-bottom')
-            )
         }
 
         if (this.borderTop && !this.lineBorder) {

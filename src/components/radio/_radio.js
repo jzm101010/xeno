@@ -94,7 +94,7 @@ var XRadio = Vue.extend({
                 props: {
                     title: this.label,
                     subTitle: this.subLabel,
-                    rightIcon: this.checked ? 'ios-checkmark-empty' : '',
+                    rightIcon: this.checked ? 'checkmark-round' : '',
                     lineBorder: this.isGroupParent,
                     onClick: me.clickEvent
                 }
