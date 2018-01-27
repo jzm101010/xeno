@@ -85,6 +85,9 @@ var XTabbar = Vue.extend({
         var $tabbar = hx(`div.x-tabbar`, {}, [this.$slots.default])
 
         return $tabbar.resolve(h)
+    },
+    mounted () {
+        // console.log(this.$el.getBoundingClientRect())
     }
 })
 

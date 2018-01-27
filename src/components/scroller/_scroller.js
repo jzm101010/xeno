@@ -255,6 +255,7 @@ var XSroller = Vue.extend({
             if (e.target.tagName.match(/input|textarea|select/i)) {
               return
             }
+            
             this.scroller.doTouchStart([{
               pageX: e.pageX,
               pageY: e.pageY

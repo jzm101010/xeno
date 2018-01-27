@@ -14,5 +14,6 @@ import './components/checkbox/_checkbox.js'
 import './components/radio/_radio.js'
 import './components/tabbar/_tabbar.js'
 import './components/badge/_badge.js'
+import './components/range/_range.js'
 
 Vue.use(vueTouchFeedback)

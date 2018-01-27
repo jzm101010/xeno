@@ -1,0 +1,26 @@
+extends ./_layout
+
+block title
+    | Range Slider
+
+block content
+    x-header(title="Range Slider")
+    div(style="margin: 30px;")
+        x-range(v-model="value", :step="5", :max="30")
+        
+
+block script
+  script.
+    new Vue({
+      el: '#app',
+      data () {
+        return {
+            value: [0, '']
+        }
+      },
+      methods: {
+          set (v) {
+              this.choose = v
+          }
+      }
+    })
