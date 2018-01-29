@@ -79,7 +79,12 @@ var XRange = Vue.extend({
     },
     methods: {
         setUp () {
-
+            if (isArray(this.value)) {
+                this.button_leftPos = (this.value[0] * this.rangeStep) / this.step
+                this.button_rightPos = (this.value[1] * this.rangeStep) / this.step
+            }else {
+                this.button_leftPos = (this.value * this.rangeStep) / this.step
+            }
         },
         touchStart (e) {
             this.diff = e.touches[0].pageX - this.lineRect.width;
@@ -174,8 +179,15 @@ var XRange = Vue.extend({
 
         if (this.degreeList.length) {
             this.degreeList.map(item => {
-                let active = this.value[0] == item.value || this.value[1] == item.value ? true : false
+                let active = false
                 let bias = item.value < 10 ? 1 : 2
+
+                if (isArray(this.value)) {
+                    active = this.value[0] <= item.value && item.value <= this.value[1] ? true : false
+                } else {
+                    active = this.value == item.value
+                }
+
                 $degrees.push(
                     hx(`div.x-range-degree + ${active ? 'x-range-degree-active' : ''}`, {
                         style: {
@@ -205,6 +217,9 @@ var XRange = Vue.extend({
 
         $range.push($lineBox)
         return $range.resolve(h)
+    },
+    mounted () {
+        this.setUp()
     }
 })
 
