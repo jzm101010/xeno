@@ -5,8 +5,18 @@ block title
 
 block content
     x-header(title="Range Slider")
+    div(style="margin: 30px;margin-top:0;")
+        .title basic 
+        x-range(v-model="value1", :step="1", :max="60")
     div(style="margin: 30px;")
-        x-range(v-model="value", :step="5", :max="30")
+        .title range 
+        x-range(v-model="value2", :step="1", :max="60")
+    div(style="margin: 30px;")
+        .title degree 
+        x-range(v-model="value3", :step="5", :max="60", :degree="degree")
+    div(style="margin: 30px;")
+        .title dot
+        x-range(v-model="value4", :step="5", :max="60", :degree="degree", dot)
         
 
 block script
@@ -15,7 +25,11 @@ block script
       el: '#app',
       data () {
         return {
-            value: [0, '']
+            value1: '',
+            value2: [0, ''],
+            value3: [0, ''],
+            value4: [0, ''],
+            degree: {'5': 5, "15": 15, "25": 25, "35": 35, "45": 45, "55": 55}
         }
       },
       methods: {

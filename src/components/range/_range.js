@@ -1,4 +1,4 @@
-import {isArray, inArray, hx, swap} from '../../common/_tools.js'
+import {isArray, hx} from '../../common/_tools.js'
 
 var XRange = Vue.extend({
     props: {
@@ -14,8 +14,8 @@ var XRange = Vue.extend({
             type: Number,
             default: 1
         },
-        degree: Array,
-        unlimited: String,
+        dot: Boolean,
+        degree: Object,
         value: [Number, String, Array]
     },
     data () {
@@ -34,20 +34,17 @@ var XRange = Vue.extend({
             var arr = []
 
             if (this.degree) {
-                arr.concat(this.degree)
-
-                if (this.unlimited) {
-                    arr.push(this.unlimited)
+                for(let key in this.degree) {
+                    let obj = {
+                        left: (this.degree[key] * this.rangeStep) / this.step,
+                        title: key,
+                        value: this.degree[key]
+                    }
+                    arr.push(obj)
                 }
             }
 
-            return arr.map(item => {
-                return {
-                    left: 0,
-                    text: item
-                }
-            })
-
+            return arr
         },
         lineRect () {
             var rect = {}
@@ -70,8 +67,12 @@ var XRange = Vue.extend({
                 width: 0
             }
 
-            obj.left = this.button_leftPos < this.button_rightPos ? this.button_leftPos : this.button_rightPos
-            obj.width = Math.abs(this.button_rightPos - this.button_leftPos)
+            if (isArray(this.value)) {
+                obj.left = this.button_leftPos < this.button_rightPos ? this.button_leftPos : this.button_rightPos
+                obj.width = Math.abs(this.button_rightPos - this.button_leftPos)
+            } else {
+                obj.width = this.button_leftPos
+            }
 
             return obj
         }
@@ -102,6 +103,20 @@ var XRange = Vue.extend({
                 changeStep = 0
             }
 
+            if (this.dot && this.degreeList.length) {
+                let flag = false
+
+                this.degreeList.map(item => {
+                    if (Math.ceil(change) == Math.ceil(item.left)) {
+                        flag = true
+                    }
+                })
+
+                if (!flag) {
+                    return
+                }
+            }
+
             if (e.target.className.indexOf('left') !== -1) {
                 this.button_leftPos = change
                 this.changeValue(changeStep, 'left')
@@ -112,7 +127,7 @@ var XRange = Vue.extend({
         },
         touchEnd (e) {
             var value = this.value
-            if (value[0] > value[1]) {
+            if (isArray(value) && value[0] > value[1]) {
                 [value[0], value[1]] = [value[1], value[0]];
                 [this.button_leftPos, this.button_rightPos] = [this.button_rightPos, this.button_leftPos]
                 this.$emit('input', value)
@@ -121,7 +136,12 @@ var XRange = Vue.extend({
         changeValue (step, target) {
             var value = this.value
             var index = target == 'left' ? 0 : 1
-            value[index] = step * this.step
+            if (isArray(value)) {
+                value[index] = step * this.step
+            } else {
+                value = step * this.step
+            }
+            
             this.$emit('input', value)
         }  
     },
@@ -152,6 +172,22 @@ var XRange = Vue.extend({
             }
         })
 
+        if (this.degreeList.length) {
+            this.degreeList.map(item => {
+                let active = this.value[0] == item.value || this.value[1] == item.value ? true : false
+                let bias = item.value < 10 ? 1 : 2
+                $degrees.push(
+                    hx(`div.x-range-degree + ${active ? 'x-range-degree-active' : ''}`, {
+                        style: {
+                            left: (item.left - bias) + '%',
+                        }
+                    }, [item.title])
+                )
+            })
+
+            $range.push($degrees)
+        }
+
         $lineBox
         .push(hx(`div.x-range-line`))
         .push(hx(`div.x-range-line-active`, {
@@ -161,9 +197,13 @@ var XRange = Vue.extend({
             }
         }))
         .push($button1)
-        .push($button2)
 
-        $range.push($degrees).push($lineBox)
+        if (isArray(this.value)) {
+            $lineBox.push($button2)
+        }
+
+
+        $range.push($lineBox)
         return $range.resolve(h)
     }
 })

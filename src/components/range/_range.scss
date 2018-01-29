@@ -1,32 +1,75 @@
 .x-range {
     position: relative;
 
+    &-degree-group {
+        position: relative;
+        left: 0;
+        width: 100%;
+        height: 20 * $bp;
+        margin-bottom: 20 * $bp;
+        font-size: 15 * $bp;
+    }
+
+    &-degree {
+        display: inline-block;
+        position: absolute;
+        text-align: center;
+        vertical-align: middle;
+        color: $color-black;
+        height: 10 * $bp;
+        cursor: pointer;
+
+        &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 50%;
+            width: 1 * $bp;
+            height: 10 * $bp;
+            background-color: $color-gray;
+            @include transform(translateX(-1 * $bp))
+        }
+    }
+
+    &-degree-active {
+        color: $color-info;
+    }
+
     &-line {
         position: absolute;
         width: 100%;
         background-color: #ddd;
-        height: 2px;
+        height: 2 * $bp;
     }
 
     &-line-active {
         position: absolute;
         left: 0;
-        height: 2px;
-        border-radius: 2px;
-        background-color: #108ee9;
+        height: 2 * $bp;
+        border-radius: 2 * $bp;
+        background-color: $color-info;
     }
 
     &-button {
         position: absolute;
-        margin-left: -12px;
-        margin-top: -10px;
-        width: 22px;
-        height: 22px;
+        margin-left: -12 * $bp;
+        margin-top: -10 * $bp;
+        width: 22 * $bp;
+        height: 22 * $bp;
         cursor: pointer;
         border-radius: 50%;
-        border: 2px solid #108ee9;
+        border: 2 * $bp solid $color-info;
         background-color: #fff;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: -10 * $bp;
+            right: -10 * $bp;
+            bottom: -10 * $bp; 
+            left: -10 * $bp;
+        }
     }
 }

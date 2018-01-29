@@ -1,15 +1,10 @@
-/*
- * =========================================================
- * @ filename : flex.scss
- * @ explains : flex layout mixin; 目前支持flex,未做inline-flex
- *
- * @ email    : f2engineer@outlook.com
- * @ author   : Pom
- * ==========================================================
- */
+@mixin transform($value) {
+    -webkit-transform: $value;
+    -moz-transform: $value;
+    -ms-transform: $value;
+    transform: $value;
+}
 
-// ----------------------------------
-// 定义伸缩布局
 @mixin display-flex() {
     display: -webkit-box;   /* old version iOS 6- Safari 3.1-6 */
     display: -moz-box;      /* Firefox 19- */
