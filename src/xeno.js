@@ -15,5 +15,6 @@ import './components/radio/_radio.js'
 import './components/tabbar/_tabbar.js'
 import './components/badge/_badge.js'
 import './components/range/_range.js'
+import './components/card/_card.js'
 
 Vue.use(vueTouchFeedback)

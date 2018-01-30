@@ -1,0 +1,28 @@
+extends ./_layout
+
+block title
+    | Card
+
+block content
+    x-header(title="Card")
+    div(style="margin: 10px")
+        x-card(img="https://avatars3.githubusercontent.com/u/11794180?s=460&v=4", :img-style="style", title="This is Title", title-extra="This is Title Extra", footer="This is Footer", footer-extra="This is Footer Extra") {{ text }}
+    div(style="margin-top: 20px")
+        x-card(img="https://avatars3.githubusercontent.com/u/11794180?s=460&v=4", :img-style="style", full, title="This is Title", title-extra="This is Title Extra", footer="This is Footer", footer-extra="This is Footer Extra") {{ text }}
+    div(style="margin-top: 20px")
+        x-card(full, title="This is Title", title-extra="This is Title Extra", footer="This is Footer", footer-extra="This is Footer Extra") {{ text }}
+
+block script
+  script.
+    new Vue({
+      el: '#app',
+      data () {
+        return {
+            style: {
+                width: '64px',
+                height: '64px'
+            },
+            text: 'This is Body\nThis is Body'
+        }
+      }
+    })

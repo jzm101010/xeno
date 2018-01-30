@@ -1,0 +1,71 @@
+.x-card {
+    &:not(.x-card-full) {
+        @include hairline('all', $color-gray-light-extra, $radius-md)
+    }
+
+    @include display-flex();
+    @include flex-direction('column');
+    min-height: 96 * $bp;
+    padding-bottom: $v-spacing-sm;
+    background-color: $color-white;
+
+    &-full {
+        position: relative;
+        @include hairline('top');
+        @include hairline('bottom');
+    }
+
+    &-header {
+        @include display-flex();
+        @include align-items();
+
+        font-size: 17 * $bp;
+        padding: $v-spacing-md $h-spacing-lg;
+
+        &-content {
+            @include display-flex();
+            @include align-items();
+            @include flex(1);
+            text-align: left;
+            color: $color-black;
+
+            &-img {
+                margin-right: $h-spacing-sm;
+            }
+        }
+
+        &-extra {
+            @include flex(1);
+            text-align: right;
+            font-size: 17 * $bp;
+            color: $color-silver-light;
+        }
+    }
+
+    &-body {
+        @include flex(1);
+        @include hairline('top');
+        position: relative;
+        padding: $v-spacing-lg $h-spacing-lg $v-spacing-sm;
+        min-height: 40 * $bp;
+        font-size: 15 * $bp;
+        color: $color-black;
+        white-space: pre-wrap;
+    }
+
+    &-footer {
+        @include display-flex();
+        padding: 0 $h-spacing-lg;
+        font-size: 14 * $bp;
+        color: $color-silver-light;
+
+        &-content {
+            @include flex(1);
+        }
+
+        &-extra {
+            @include flex(1);
+            text-align: right;
+        }
+    }
+}
