@@ -1,0 +1,68 @@
+.x-cell {
+    position: relative;
+
+    &-row {
+        @include display-flex();
+        @include align-items(stretch);
+        @include justify-content('center');
+        position: relative;
+        text-align: left;
+        overflow: hidden;
+        background-color: $color-white;
+    }
+
+    &-item {
+        @include flex(1);
+        position: relative;
+        min-width: 10 * $bp;
+        font-size: 12 * $bp;
+
+        &.column-num-3 {
+            font-size: 16px;
+        }
+
+        &.column-num-2 {
+            font-size: 18px;
+        }
+
+        &::before {
+            display: block;
+            content: ' ';
+            padding-bottom: 100%;
+        }
+
+        &-content {
+            @include transform(translateY(-50%));
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            height: 100%;
+            padding: 15px 0;
+
+            &-inner {
+                @include display-flex();
+                @include flex-direction('column');
+                @include align-items(center);
+                @include justify-content('center');
+                height: 100%;
+            }
+        }
+    }
+}
+
+.x-cell-line {
+    @include hairline('top');
+    @include hairline('bottom');
+
+    .x-cell-row:not(:last-child) {
+        @include hairline('bottom');
+    }
+
+    .x-cell-item:first-child {
+        @include hairline('left');
+    }
+
+    .x-cell-item {
+        @include hairline('right');
+    }
+}

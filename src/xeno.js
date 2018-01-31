@@ -16,5 +16,6 @@ import './components/tabbar/_tabbar.js'
 import './components/badge/_badge.js'
 import './components/range/_range.js'
 import './components/card/_card.js'
+import './components/cell/_cell.js'
 
 Vue.use(vueTouchFeedback)
