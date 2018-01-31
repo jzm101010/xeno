@@ -41,13 +41,9 @@ var XCellRow = Vue.extend({
 })
 
 var XCellItem = Vue.extend({
-  props: {
-    
+  props: { 
   },
   computed: {
-    style () {
-
-    }
   },
   render (h) {
     var $item = hx(`div.x-cell-item + column-num-${this.$parent.colNum}`, {
