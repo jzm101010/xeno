@@ -17,6 +17,9 @@ block content
     div(style="margin: 30px;")
         .title dot
         x-range(v-model="value4", :step="5", :max="60", :degree="degree", dot)
+    div(style="margin: 30px;")
+        .title disabled
+        x-range(v-model="value4", :step="5", :max="60", :degree="degree", dot, disabled)
         
 
 block script

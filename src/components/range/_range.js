@@ -16,6 +16,7 @@ var XRange = Vue.extend({
         },
         dot: Boolean,
         degree: Object,
+        disabled: Boolean,
         value: [Number, String, Array]
     },
     data () {
@@ -30,6 +31,15 @@ var XRange = Vue.extend({
         }
     },
     computed: {
+        cls () {
+            var cls = ['x-range']
+
+            if (this.disabled) {
+                cls.push('x-range-disabled')
+            }
+
+            return cls
+        },
         degreeList () {
             var arr = []
 
@@ -87,6 +97,10 @@ var XRange = Vue.extend({
             }
         },
         touchStart (e) {
+            if (this.disabled) {
+                return 
+            }
+
             this.diff = e.touches[0].pageX - this.lineRect.width;
             if (e.target.className.indexOf('left') !== -1) {
                 this.alreadyStep = Math.ceil(this.button_leftPos / this.rangeStep)
@@ -96,6 +110,10 @@ var XRange = Vue.extend({
         },
         touchMove (e) {
             e.preventDefault()
+
+            if (this.disabled) {
+                return 
+            }
 
             var left = e.touches[0].pageX - this.lineRect.width - this.diff;
             var changeStep = Math.ceil(left / this.rangeStepWidth)  + this.alreadyStep
@@ -131,6 +149,10 @@ var XRange = Vue.extend({
             }
         },
         touchEnd (e) {
+            if (this.disabled) {
+                return 
+            }
+
             var value = this.value
             if (isArray(value) && value[0] > value[1]) {
                 [value[0], value[1]] = [value[1], value[0]];
@@ -153,7 +175,7 @@ var XRange = Vue.extend({
     render (h) {
         var me = this
 
-        var $range = hx(`div.x-range`)
+        var $range = hx(`div.${this.cls.join('+')}`)
         var $degrees = hx(`div.x-range-degree-group`)
         var $lineBox = hx(`div.x-range-line-box`)
         var $button1 = hx(`div.x-range-button + x-range-button-left`, {

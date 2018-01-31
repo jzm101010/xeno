@@ -73,3 +73,23 @@
         }
     }
 }
+
+.x-range-disabled {
+    .x-range-button, .x-range-line-active {
+        background-color: $color-gray-light;
+    }
+
+    .x-range-button {
+        border-color: $color-gray;
+    }
+
+    .x-range-degree {
+        color: $color-gray;
+    }
+
+    .x-range-degree-active {
+        color: $color-gray-light;
+    }
+
+    
+}
