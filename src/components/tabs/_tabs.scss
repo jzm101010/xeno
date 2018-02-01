@@ -1,0 +1,48 @@
+.x-tabs{
+    position: relative;
+}
+  
+.x-tabs-head{
+    @include display-flex();
+    @include flex-direction('row');
+    @include justify-content('center');
+    @include transform(translateZ(0));
+    @include hairline('bottom');
+    width: 100%;
+    height: 49 * $bp;
+    line-height: 49 * $bp;
+    background-color: $color-white;
+}
+
+.x-tabs-tab{
+    @include flex(1);
+    @include transition(color .1s ease);
+    position: relative;
+    max-width: 208 * $bp;
+    height: 100%;
+    color: rgba(74,144,226,.4);
+    font-size: 14 * $bp;
+    text-align: center;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    .x-icon{
+        margin-right: 5px;
+    }
+
+    .x-badge {
+        position: absolute;
+        right: 0;
+    }
+}
+
+.x-tabs-tab-active{
+    border-width: 0 0 2px!important;
+    color: $color-primary;
+    border: 0 solid $color-primary;
+}
+
+.x-tabs-pane{
+    display: none;  
+}

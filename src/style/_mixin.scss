@@ -20,6 +20,11 @@
     transform: $value;
 }
 
+@mixin transition($value) {
+    -webkit-transition: $value;
+    transition: $value;
+}
+
 @mixin display-flex() {
     display: -webkit-box;   /* old version iOS 6- Safari 3.1-6 */
     display: -moz-box;      /* Firefox 19- */

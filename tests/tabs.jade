@@ -1,0 +1,30 @@
+extends ./_layout
+
+block title
+    | Tabs
+
+block content
+    x-header(title="Tabs")
+    x-tabs(v-model="tabValue")
+        x-tab-pane(label="Message", icon="chatbox-working", name="pane1", :badge="20")
+            div(style="padding: 100px;background-color:#fff;text-align:center;") content1
+        x-tab-pane(label="Images", icon="images", name="pane2")
+            div(style="padding: 100px;background-color:#fff;text-align:center;") content2
+        x-tab-pane(label="My", icon="person", name="pane3")
+            div(style="padding: 100px;background-color:#fff;text-align:center;") content3
+        x-tab-pane(label="Card", icon="card", name="pane4")
+            div(style="padding: 100px;background-color:#fff;text-align:center;") content4
+        
+
+block script
+  script.
+    new Vue({
+      el: '#app',
+      data () {
+        return {
+            tabValue: 'pane1'
+        }
+      },
+      methods: {
+      }
+    })
