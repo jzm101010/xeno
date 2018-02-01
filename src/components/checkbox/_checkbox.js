@@ -1,6 +1,6 @@
 import {isArray, inArray, hx} from '../../common/_tools.js'
 import instance from '../../common/_instance.js'
-// import { RFormItem } from '../form/_form'
+import { XFormItem } from '../form/_form'
 
 var XCheckbox = Vue.extend({
     model: {
@@ -52,8 +52,8 @@ var XCheckbox = Vue.extend({
             }
         },
         formItem () {
-            return false
-            // return instance.getParent(this, RFormItem)
+            // return false
+            return instance.getParent(this, XFormItem)
         },
     },
     methods: {

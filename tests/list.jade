@@ -4,6 +4,7 @@ block title
     | List
 
 block content
+    x-header(title="List")
     .margin-10
         x-list(title="Title", is-title)
         x-list(title="normal")
@@ -17,6 +18,7 @@ block content
         x-list(title="textarea", value="just like you see\nthis is a textarea", type="textarea")
         x-list(title="phone number", value="13813299675", is-tel)
         x-list(title="link", value="click", is-link, :on-click="click1")
+        x-list(title="input", value="placeholder" type="input")
         x-list-group(header="List Group")
             x-list(title="no bottom border", left-icon="social-github", line-border)
             x-list(title="no border", left-icon="social-github", line-border)

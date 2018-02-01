@@ -33,6 +33,22 @@ function deepClone(obj) {
     return JSON.parse(JSON.stringify(obj))
 }
 
+function mergeObj(...args){
+    var [obj1, ...objs] = args
+  
+    objs.forEach(obj2 => {
+      if (!obj2) {
+        return
+      }
+  
+      for (var o in obj2){
+        obj1[o] = obj2[o]
+      }
+    })
+  
+    return obj1
+  }
+
 
 // 简化createElement嵌套写法
 class VVNode{
@@ -177,5 +193,6 @@ export {
     getTextWidth,
     paddingZero,
     deepClone,
+    mergeObj,
     isdef,
 }

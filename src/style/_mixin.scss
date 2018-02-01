@@ -1,3 +1,9 @@
+@mixin appearance($value) {
+    -webkit-appearance: $value;
+    -moz-appearance: $value;
+    appearance: $value;
+}
+
 @mixin clear() {
     &:before,
     &:after {
@@ -47,6 +53,12 @@
         -webkit-flex-direction: column;
         flex-direction: column;
     }
+}
+
+@mixin flex-basis($value) {
+    -webkit-flex-basis: $value;
+    -ms-flex-preferred-size: $value;
+    flex-basis: $value;
 }
 
 @mixin justify-content($value: center) {
