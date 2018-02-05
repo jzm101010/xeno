@@ -8,6 +8,8 @@ block content
     .margin-top-10
         x-input(placeholder="placeholder", v-model="input1", label="normal")
         x-input(placeholder="placeholder", v-model="input2", label="passowrd", type="password")
+        x-input(v-model="input3", label="textarea", type="textarea")
+        x-input( v-model="input1", label="disabled", disabled)
 
 block script
   script.
@@ -17,6 +19,7 @@ block script
         return {
             input1: '11111',
             input2: '',
+            input3: '',
         }
       },
       methods: {

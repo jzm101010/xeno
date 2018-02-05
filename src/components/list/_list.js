@@ -1,6 +1,5 @@
 import {hx, mergeObj} from '../../common/_tools.js'
 import instance from '../../common/_instance.js'
-import { XInput } from '../input/_input'
 
 var XList = Vue.extend({
     props: {
@@ -44,10 +43,6 @@ var XList = Vue.extend({
         extraCls () {
             var cls = ['x-list-extra']
 
-            if (this.type == 'input' || this.isInput) {
-                cls.push('x-list-extra-input')
-            }
-
             return cls
         },
         lineCls () {
@@ -77,9 +72,6 @@ var XList = Vue.extend({
                 return this.isTel && this.type == 'textarea' ? this.value.split('\n')[1] : this.value
             }
         },
-        isInput () {
-            return instance.getParent(this, XInput)
-        }
     },
     methods: {
         clickEvent () {
@@ -95,6 +87,8 @@ var XList = Vue.extend({
         var $line = hx(`div.${this.lineCls.join('+')}`)
         var $content = hx(`div.x-list-content`, {}, [this.title])
         var $extra = hx(`div.${this.extraCls.join('+')}`)
+
+
         if (this.isLink) {
             var $list = hx(`div.${this.cls.join('+')}`, {
                 directives: [
@@ -158,24 +152,9 @@ var XList = Vue.extend({
 
         
 
-        if (this.type == 'input') {
-            $extra.push(
-                hx('input.x-list-input', {
-                    attrs: {
-                        placeholder: this.value
-                    }
-                })
-            )
-        } else if (this.isInput) {
-            let params = mergeObj({}, this.$parent.params)
-            $extra.push(
-                hx('input.x-list-input', params)
-            )
-        } else {
-            $extra.push(
-                hx(`span.x-list-value + ${this.valueCls.join('+')}`, {}, [this.value])
-            )
-        }
+        $extra.push(
+            hx(`span.x-list-value + ${this.valueCls.join('+')}`, {}, [this.value])
+        )
 
         $line.push($content).push($extra)
 
@@ -219,13 +198,7 @@ var XList = Vue.extend({
                 hx('span.x-list-mask')
             )
         }
-
-        
-
-        
-
-        
-        
+ 
         return $list.resolve(h)
     }
 })

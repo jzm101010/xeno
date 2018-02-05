@@ -1,0 +1,93 @@
+.x-input {
+    @include display-flex();
+    @include align-items();
+    margin: -1 * $bp 0;
+    position: relative;
+    padding-left: 15 * $bp;
+    min-height: 44 * $bp;
+    background-color: $color-white;
+    vertical-align: middle;
+    overflow: hidden;
+    -webkit-transition: background-color 200ms;
+    transition: background-color 200ms;
+
+    .x-input-line {
+        @include display-flex();
+        @include flex();
+        position: relative;
+        padding-right: 15 * $bp;
+        overflow: hidden;
+    }
+
+    .x-input-line-center {
+        @include align-items();
+    }
+
+    .x-input-line-top {
+        @include align-items(flex-start);
+    }
+
+    .x-input-line-bottom {
+        @include align-items(flex-end);
+    }
+
+    .x-input-extra {
+        @include flex-basis(70%);
+        color: $color-gray;
+        font-size: 16 * $bp;
+        line-height: 1.5;
+        text-align: right;
+        width: auto;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding-top: 7 * $bp;
+        padding-bottom: 7 * $bp;
+
+        .x-input-input {
+            @include appearance(none);
+            width: 100%;
+            height: 38 * $bp;
+            font-size: inherit;
+            border: none;
+            border-radius: 0;
+            color: $color-black;
+            resize: none;
+
+            &::-webkit-input-placeholder {
+                color: $color-gray-light;
+            }
+        }
+    }
+
+    .x-input-content {
+        @include flex();
+
+        color: $color-black;
+        font-size: 17 * $bp;
+        line-height: 1.5;
+        text-align: left;
+        width: auto;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding-top: 7 * $bp;
+        padding-bottom: 7 * $bp;
+    }
+
+    .x-input-textarea {
+        white-space: pre-wrap;
+        text-align: left;
+        line-height: 18 * $bp;
+        max-width: 280 * $bp;
+        word-break: break-word;
+    }
+}
+
+.x-input-disabled {
+    .x-input-input {
+        color: $color-gray !important;
+    }
+}
+
+

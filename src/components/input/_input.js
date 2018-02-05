@@ -3,6 +3,10 @@ import instance from '../../common/_instance.js'
 import { XFormItem } from '../form/_form'
 
 export var XInput = Vue.extend({
+    // model: {
+    //     prop: 'inputValue',
+    //     event: 'changeInput'
+    // },
   props: {
     type: {
       type: String,
@@ -22,16 +26,6 @@ export var XInput = Vue.extend({
     rows: {
       type: [Number, String],
       default: 2,
-    },
-    // 暂时不做
-    autosize: {
-      type: [Boolean, Object],
-      default: false,
-    },
-    // 暂时不做
-    number: {
-      type: Boolean,
-      default: false,
     },
     // 是否触发校验，默认触发，当XInput被其他组件使用时候选择关闭
     shouldValidate: {
@@ -54,6 +48,10 @@ export var XInput = Vue.extend({
         }
       }
 
+      if (this.disabled) {
+        cls.push('x-input-disabled')
+      }
+
       return cls
     },
     formItem () {
@@ -67,13 +65,9 @@ export var XInput = Vue.extend({
   },
   render (h) {
     var me = this
-    var $input = hx(`x-list`, {
-        props: {
-            title: this.label
-        }
-    })
-
-    this.params = {
+    var $input = hx(`div.x-input + ${this.cls.join('+')}`).push(hx('div.hairline-bottom')).push(hx('div.hairline-top'))
+    var $line = hx('div.x-input-line + x-input-line-center')
+    params = {
       domProps: {
         value: isdef(this.value) ? this.value : '',
         placeholder: this.placeholder || '',
@@ -108,14 +102,22 @@ export var XInput = Vue.extend({
     }
     
     if (this.type === 'textarea'){
-      this.params.attrs.rows = this.rows
+      params.attrs['rows'] = this.rows
     }
     else {
-      this.params.domProps.type = this.type
+      params.domProps['type'] = this.type
     }
 
-    return hx(`div.x-input + ${this.cls.join('+')}`)
-      .push($input)
+    $line.push(
+      hx('div.x-input-content', {}, [this.label])
+    ).push(
+      hx('div.x-input-extra + x-input-extra-input').push(
+        hx(`${this.type === 'textarea' ? 'textarea' : 'input'}.x-input-input`, params)
+      )
+    )
+
+    return $input
+      .push($line)
       .resolve(h)
   }
 })
