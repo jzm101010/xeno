@@ -222,15 +222,15 @@ export var XFormItem = Vue.extend({
   render (h) {
     var me = this
     var $wrapper = hx(`div.${this.cls.join('+')}`)
+    var $content = hx('div.x-form-item-content', {}, [this.$slots.default])
 
-    $wrapper.push(
-      hx('div.x-form-item-content', {}, [this.$slots.default])
-        .push(
-          hx('div.x-form-item-error-tip', {}, [this.errorMsg])
-        )
-    )
+    if (this.errorMsg) {
+      $content.push(
+        hx('div.x-form-item-error-tip', {}, [this.errorMsg])
+      )
+    }
 
-    return $wrapper.resolve(h)
+    return $wrapper.push($content).resolve(h)
   }
 })
 

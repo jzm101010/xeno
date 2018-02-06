@@ -1,7 +1,10 @@
 import {hx} from '../../common/_tools.js'
+import instance from '../../common/_instance.js'
+import { XFormItem } from '../form/_form'
 
 var XSelect = Vue.extend({
     props: {
+        value: [String, Number, Array],
         options: Array,
         disabled: Boolean,
         cascader: Boolean,
@@ -25,13 +28,22 @@ var XSelect = Vue.extend({
 
             return cls
         },
-       
+        formItem () {
+            return instance.getParent(this, XFormItem)
+        }
     },
     data () {
         return {
             selectVal: undefined,
             selectTitle: undefined,
             pickerShow: false
+        }
+    },
+    watch: {
+        value () {
+            if (this.formItem) {
+                this.formItem.validate()
+            }
         }
     },
     methods: {
@@ -79,7 +91,8 @@ var XSelect = Vue.extend({
                 props: {
                     title: this.title,
                     value: this.selectTitle === undefined ? this.placeholder : this.selectTitle,
-                    isLink: true
+                    isLink: true,
+                    borderBottom: this.formItem ? false : true
                 },
                 nativeOn: {
                     click: this.pickerShowChange

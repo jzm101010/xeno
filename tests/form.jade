@@ -1,0 +1,78 @@
+extends ./_layout
+
+block title
+    | Form
+
+block content
+    x-header(title="Form", :on-right-click="submit")
+        div(slot="headerRight")
+                div(style="color: #222") 提交
+    div(style="margin-top: 10px")
+        x-form(:model="data", :rules="rules", ref="form")
+            x-form-item(prop="name")
+                x-input(label="姓名", v-model="data.name", placeholder="请输入姓名")
+            x-form-item(prop="sex")
+                x-select(title="性别", :options="list1", v-model="data.sex")
+            x-form-item(prop="birth")
+                x-datepicker(title="出生日期", v-model="data.birth")
+            x-form-item(prop="property")
+                x-select(title="性质", :options="list2", v-model="data.property")
+
+
+block script
+  script.
+    var required = function (value, callback) {
+        if (value instanceof Array){
+          if (value.length > 0){
+            callback(true)
+          }
+          else {
+            callback(false)
+          }
+        }else {
+          if (!!value || value === 0){
+            callback(true)
+          }
+          else {
+            callback(false)
+          }
+        }
+      }
+    new Vue({
+      el: '#app',
+      data () {
+        return {
+            data: {
+                name: '',
+                sex: '',
+                birth: '',
+                property: ''
+            },
+            list1: [[{label: '女', value: 0}, {label: '男', value: 1}]],
+            list2: [[{label: '员工', value: 0}, {label: '老板', value: 1}, {label: '顾客', value: 2}]],
+            rules: {
+                name: [
+                    {validate: required, msg: '请填写名称'}
+                ],
+                sex: [
+                    {validate: required, msg: '请选择性别'}
+                ],
+                birth: [
+                    {validate: required, msg: '请选择出生日期'}
+                ],
+                property: [
+                    {validate: required, msg: '请选择性质'}
+                ],
+            }
+        }
+      },
+      methods: {
+          submit () {
+              this.$refs.form.validate((_, item)=> {
+                  if (_) {
+                      console.log('success')
+                  }
+              })
+          }
+      }
+    })

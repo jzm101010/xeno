@@ -124,24 +124,14 @@ var XRadioGroup = Vue.extend({
         var $group = hx(`div.x-radio-group`)
         var $header = hx(`div.x-radio-group-header`, {}, [this.header])
         var $body = hx(`div.x-radio-group-body`, {}, [this.$slots.default]).push(hx('div.hairline-top')).push(hx('div.hairline-bottom'))
+
+        if (this.header) {
+            $group.push($header)
+        }
     
-        return $group.push($header).push($body).resolve(h)
+        return $group.push($body).resolve(h)
     }
 })
-
-// var XListGroup = Vue.extend({
-//     props: {
-//         header: [String, Number]
-//     },
-//     render (h) {
-//         var me = this
-//         var $group = hx(`div.x-list-group`)
-//         var $header = hx(`div.x-list-group-header`, {}, [this.header])
-//         var $body = hx(`div.x-list-group-body`, {}, [this.$slots.default]).push(hx('div.hairline-top')).push(hx('div.hairline-bottom'))
-
-//         return $group.push($header).push($body).resolve(h)
-//     }
-// })
 
 Vue.component('x-radio', XRadio)
 Vue.component('x-radio-group', XRadioGroup)

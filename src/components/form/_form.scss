@@ -1,15 +1,7 @@
 .x-form{
-    padding: 10 * $bp;
     background-color: $color-white;
   }
   
-  .x-form-item{
-    margin-bottom: 24 * $bp;
-  
-    .x-form-item{
-      margin-bottom: 0;
-    }
-  }
   
   .x-form-item-label{
     vertical-align: middle;
@@ -18,12 +10,18 @@
   
   .x-form-item-content{
     position: relative;
+
+    .x-badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      opacity: 0.6;
+    }
   }
   
   .x-form-item-error-tip{
-    position: absolute;
-    left: 0;
-    padding-top: 2 * $bp;
+    text-align: right;
+    padding: 5 * $bp;
     color: $color-danger;
   }
   

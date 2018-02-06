@@ -3,10 +3,6 @@ import instance from '../../common/_instance.js'
 import { XFormItem } from '../form/_form'
 
 export var XInput = Vue.extend({
-    // model: {
-    //     prop: 'inputValue',
-    //     event: 'changeInput'
-    // },
   props: {
     type: {
       type: String,
@@ -65,8 +61,13 @@ export var XInput = Vue.extend({
   },
   render (h) {
     var me = this
-    var $input = hx(`div.x-input + ${this.cls.join('+')}`).push(hx('div.hairline-bottom')).push(hx('div.hairline-top'))
-    var $line = hx('div.x-input-line + x-input-line-center')
+    var $input = hx(`div.x-input + ${this.cls.join('+')}`).push(hx('div.hairline-top'))
+    var $line = hx(`div.x-input-line + x-input-line-${this.type == 'textarea' ? 'top' : 'center'}`)
+
+    if (!this.formItem) {
+      $input.push(hx('div.hairline-bottom'))
+    }
+
     params = {
       domProps: {
         value: isdef(this.value) ? this.value : '',

@@ -1,7 +1,10 @@
 import {hx, paddingZero} from '../../common/_tools.js'
+import instance from '../../common/_instance.js'
+import { XFormItem } from '../form/_form'
 
 var XDatepicker = Vue.extend({
     props: {
+        value: [String, Number, Array],
         disabled: Boolean,
         type: {
             type: String,
@@ -30,12 +33,21 @@ var XDatepicker = Vue.extend({
 
             return cls
         },
-       
+        formItem () {
+            return instance.getParent(this, XFormItem)
+        }
     },
     data () {
         return {
             select: undefined,
             pickerShow: false
+        }
+    },
+    watch: {
+        value () {
+            if (this.formItem) {
+                this.formItem.validate()
+            }
         }
     },
     methods: {
@@ -84,7 +96,8 @@ var XDatepicker = Vue.extend({
                 props: {
                     title: this.title,
                     value: this.select === undefined ? this.placeholder : this.select,
-                    isLink: true
+                    isLink: true,
+                    borderBottom: this.formItem ? false : true
                 },
                 nativeOn: {
                     click: this.pickerShowChange
