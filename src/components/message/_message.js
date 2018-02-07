@@ -31,7 +31,7 @@ var XMessage = Vue.extend({
       this.type = type || 'info'
       this.isShow = true
 
-    //   this.hide()
+      this.hide()
     },
     hide () {
       this.timer = setTimeout(_=>{
