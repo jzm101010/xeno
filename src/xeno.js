@@ -20,5 +20,6 @@ import './components/cell/_cell.js'
 import './components/tabs/_tabs.js'
 import './components/form/_form.js'
 import './components/input/_input.js'
+import './components/message/_message.js'
 
 Vue.use(vueTouchFeedback)

@@ -1,0 +1,42 @@
+.x-message{
+    @include transform(translate(-50%, -50%));
+    position: fixed;
+    padding: $v-spacing-md $h-spacing-lg;
+    left: 50%;
+    top: 50%;
+    width: auto;
+    max-width: 60%;
+    line-height: 1.5;
+    font-size: 16 * $bp;
+    text-align: center;
+    color: $color-white;
+    border-radius: $radius-sm;
+    background-color: rgba(58, 58, 58, 0.9);
+    
+  
+    // 这个值假设比modal的大
+    z-index: 10000;
+  
+    .x-message-text{
+    }
+  }
+  
+//   .x-message-success{
+//     background: $color-success-bg;
+//     color: $color-success;
+//   }
+  
+//   .x-message-info{
+//     background: $color-msg-bg;
+//     color: $color-msg;
+//   }
+  
+//   .x-message-warning{
+//     background: $color-warning-bg;
+//     color: $color-warning;
+//   }
+  
+//   .x-message-error{
+//     background: $color-danger-bg;
+//     color: $color-danger;
+//   }

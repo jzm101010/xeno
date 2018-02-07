@@ -1,0 +1,33 @@
+extends ./_layout
+
+block title
+    | Message
+
+block content
+    x-header(title="Message")
+    .margin-10
+        x-button(long, @click.native="toast('info')") info
+    .margin-10
+        x-button(long, @click.native="toast('success')") success
+    .margin-10
+        x-button(long, @click.native="toast('warning')") warning 
+    .margin-10
+        x-button(long, @click.native="toast('error')") error
+    .margin-10
+        x-button(long, @click.native="toast('loading')") loading
+
+block script
+  script.
+    new Vue({
+      el: '#app',
+      data () {
+        return {
+            
+        }
+      },
+      methods: {
+          toast (type) {
+              this.$message('message test', type)
+          }
+      }
+    })
