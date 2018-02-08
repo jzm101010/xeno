@@ -1,0 +1,183 @@
+.x-dialog {
+    position: relative;
+    width: 270 * $bp;
+    // visibility: hidden;
+
+    &-content {
+        position: relative;
+        padding-top: $v-spacing-lg;
+        height: 100%;
+        border: 0;
+        border-radius: $radius-lg;
+        text-align: center;
+        background-color: $color-white;
+        background-clip: padding-box;
+        overflow: hidden;
+    }
+
+    &-header {
+        padding: 6 * $bp 15 * $bp 15 * $bp;
+        color: $color-black;
+        text-align: center;
+        line-height: 1;
+        font-size: 18 * $bp;
+    }
+
+    &-body {
+        padding: 0 15 * $bp 15 * $bp;
+        height: 100%;
+        color: $color-gray;
+        line-height: 1.5;
+        overflow: auto;
+
+        &-content {
+            zoom: 1;
+            overflow: hidden;
+            font-size: 15 * $bp;
+        }
+    }
+
+    &-footer-group-h {
+        @include display-flex();
+        @include hairline('top');
+        position: relative;
+
+        &>.x-dialog-button:first-child {
+            color: $color-black;
+        }
+
+        &>.x-dialog-button:last-child {
+            position: relative;
+            @include hairline('left');
+        }
+    }
+
+    &-button {
+        @include flex(1);
+        display: block;
+        width: auto;
+        height: 50 * $bp;
+        font-size: 18 * $bp;
+        line-height: 50 * $bp;
+        text-align: center;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        color: $color-primary;
+        outline: none;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+}
+
+.x-dialog-wrapper {
+    @include display-flex();
+    @include align-items();
+    @include justify-content('center');
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1000;
+    outline: 0;
+    overflow: hidden;
+}
+
+.x-dialog-mask {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.4);
+    // visibility: hidden;
+
+    &.popup {
+        -webkit-animation-name: opacityToOne;
+        animation-name: opacityToOne;
+    
+        -webkit-animation-duration: .25s;
+        animation-duration: .25s;
+        visibility: visible;
+    }
+
+    &.popup-hidden {
+        -webkit-animation-name: opacityToZero;
+        animation-name: opacityToZero;
+    
+        -webkit-animation-duration: .25s;
+        animation-duration: .25s;
+        visibility: visible;
+    }
+}
+
+
+//dialog animation
+//Bounce
+.bounce-enter {
+    visibility: hidden;
+}
+
+.bounce-enter-active {
+    -webkit-animation-name: bounceIn;
+    animation-name: bounceIn;
+
+    -webkit-animation-duration: .25s;
+    animation-duration: .25s;
+}
+
+.bounce-leave-active {
+    -webkit-animation-name: bounceOut;
+    animation-name: bounceOut;
+
+    -webkit-animation-duration: .25s;
+    animation-duration: .25s;
+}
+
+//SlideUp
+.slide-enter {
+    visibility: hidden;
+}
+
+.slide-enter-active {
+    -webkit-animation-name: slideDownIn;
+    animation-name: slideDownIn;
+
+    -webkit-animation-duration: .25s;
+    animation-duration: .25s;
+}
+
+.slide-leave-active {
+    -webkit-animation-name: slideUpOut;
+    animation-name: slideUpOut;
+
+    -webkit-animation-duration: .25s;
+    animation-duration: .25s;
+}
+
+
+
+
+// mask animation
+.popup-mask-enter {
+    opacity: 0;
+}
+.popup-mask-enter-active {
+    -webkit-animation-name: opacityToOne;
+    animation-name: opacityToOne;
+
+    -webkit-animation-duration: .25s;
+    animation-duration: .25s;
+}
+
+.popup-mask-leave-active {
+    -webkit-animation-name: opacityToZero;
+    animation-name: opacityToZero;
+
+    -webkit-animation-duration: .25s;
+    animation-duration: .25s;
+}
+

@@ -1,0 +1,59 @@
+extends ./_layout
+
+block title
+    | Dialog
+
+block content
+    x-header(title="Dialog")
+    .margin-10
+        x-button(long, @click.native="dialog.show1 = true") basic
+    .margin-10
+        x-button(long, @click.native="dialog.show2 = true") slide
+    .margin-10
+        x-button(long, @click.native="dialog.show3 = true") customized button
+    .margin-10
+        x-button(long, @click.native="dialog.show4 = true") input
+
+    x-dialog(title="Title - bounce", v-model="dialog.show1") content,content,content,content
+    x-dialog(title="Title - slide", v-model="dialog.show2", animation-type="slide") content,content,content,content
+    x-dialog(title="Title - customized button", v-model="dialog.show3", :footer="[{text: '你好', onPress: _=> {this.showConfirm()}}]") 你好啊
+    x-dialog(title="Title - input", v-model="dialog.show4")
+        x-input(label="name", placeholder="enter you name", v-model="input1")
+        x-input(label="address", placeholder="enter you adress", v-model="input2")
+block script
+  script.
+    new Vue({
+      el: '#app',
+      data () {
+        return {
+            dialog: {
+                show1: false,
+                show2: false,
+                show3: false,
+                show4: false,
+            },
+            input1: '',
+            input2: '',
+        }
+      },
+      methods: {
+          toast (type) {
+              this.$message('message test', type)
+          },
+          callback1 () {
+              this.$message('callback')
+              this.dialog.show3 = false
+          },
+          showConfirm () {
+              var options = {
+                  content: '你也好啊',
+                  onOk: _=> {
+                        this.$message('callback')
+                        this.dialog.show3 = false
+                  },
+                  
+              }
+              this.$confirm(options)
+          }
+      }
+    })

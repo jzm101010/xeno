@@ -41,8 +41,9 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        padding-top: 7 * $bp;
-        padding-bottom: 7 * $bp;
+        // padding-top: 7 * $bp;
+        // padding-bottom: 7 * $bp;
+        padding: 7 * $bp 0 7 * $bp 7 * $bp ;
 
         .x-input-input {
             @include appearance(none);

@@ -109,9 +109,11 @@ export var XInput = Vue.extend({
       params.domProps['type'] = this.type
     }
 
+    if (this.label) {
+      $line.push(hx('div.x-input-content', {}, [this.label]))
+    }
+
     $line.push(
-      hx('div.x-input-content', {}, [this.label])
-    ).push(
       hx('div.x-input-extra + x-input-extra-input').push(
         hx(`${this.type === 'textarea' ? 'textarea' : 'input'}.x-input-input`, params)
       )
