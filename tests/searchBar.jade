@@ -1,0 +1,22 @@
+extends ./_layout
+
+block title
+    | SearchBar
+
+block content
+    x-header(title="SearchBar")
+    .margin-top-10
+        x-searchbar(placeholder="search", v-model="input1")
+
+block script
+  script.
+    new Vue({
+      el: '#app',
+      data () {
+        return {
+            input1: '',
+        }
+      },
+      methods: {
+      }
+    })

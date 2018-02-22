@@ -19,7 +19,8 @@ var XDialog = Vue.extend({
     animationType: {
         type: String,
         default: 'bounce'
-    }
+    },
+    maskClose: Boolean
   },
   data () {
     return {
@@ -83,7 +84,7 @@ var XDialog = Vue.extend({
     // mask
     var $mask = hx(`div.x-dialog-mask`, {
         on: {
-            click: me.hide
+            click: this.maskClose ? me.hide : _=> {}
         }
     })
 

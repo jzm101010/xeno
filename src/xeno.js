@@ -22,5 +22,6 @@ import './components/form/_form.js'
 import './components/input/_input.js'
 import './components/message/_message.js'
 import './components/dialog/_dialog.js'
+import './components/searchBar/_searchBar.js'
 
 Vue.use(vueTouchFeedback)
