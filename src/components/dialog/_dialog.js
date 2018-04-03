@@ -20,7 +20,8 @@ var XDialog = Vue.extend({
         type: String,
         default: 'bounce'
     },
-    maskClose: Boolean
+    maskClose: Boolean,
+    noFooter: Boolean
   },
   data () {
     return {
@@ -103,18 +104,28 @@ var XDialog = Vue.extend({
     )
 
     // footer
-    var $footer = hx(`div.${this.footerCls.join('+')}`)
-    this.footer.map(item=> {
+    if (this.$slots.footer) {
+      var $footer = hx(`div.${this.footerCls.join('+')}`, {}, [this.$slots.footer])
+    }else {
+      var $footer = hx(`div.${this.footerCls.join('+')}`)
+      this.footer.map(item=> {
         $footer.push(
             hx('a.x-dialog-button', {
                 on: {
-                    click: item.onPress || me.hide
-                }
+                    click: item.onPress || me.hide,
+                    touchstart: item.onPress || me.hide
+                },
+                // nativeOn: {
+                //   click: item.onPress || me.hide
+                // }
             }, [item.text])
         )
-    })
-
-    $content.push($footer)
+      })
+    }
+    
+    if (!this.noFooter) {
+      $content.push($footer)
+    }
 
     var $transition = hx('transition', {
         props: {
@@ -151,7 +162,7 @@ Vue.component('x-dialog', XDialog)
 // 全局注入alert
 var XAlert = Vue.extend({
   template: `
-    <x-dialog v-model="value" :title="title" :footer="[{text: buttonText, onPress: _=> {this.okClick()}}]">
+    <x-dialog v-model="value" :title="title" :footer="[{text: buttonText, onPress: this.cancelClick}]">
       <div>{{content}}</div>
     </x-dialog>
   `,
@@ -209,7 +220,7 @@ var getAlert = function (){
 // 全局注入confirm
 var XConfirm = Vue.extend({
   template: `
-    <x-dialog v-model="value" :title="title" :footer="[{text: cancelText, onPress: _=> {this.cancelClick()}}, {text: okText, onPress: _=> {this.okClick()}}]">
+    <x-dialog v-model="value" :title="title" :footer="[{text: cancelText, onPress: this.cancelClick}, {text: okText, onPress: this.cancelClick}]">
         <div>{{content}}</div>
     </x-dialog>
   `,
